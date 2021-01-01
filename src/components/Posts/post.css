@@ -18,9 +18,16 @@
 }
 
 .post-container_content {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.post-container_content input,
+.post-container_content textarea {
+  width: 95%;
+  margin: 5px auto 5px auto;
 }
 
 .post-container_content-image-container {
@@ -36,4 +43,14 @@
 
 .ant-typography {
   width: 95%;
+}
+
+.post-container_controls {
+  width: 95%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.post-container_controls button {
+  margin-left: 10px;
 }

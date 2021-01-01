@@ -24,6 +24,50 @@ const initialState = {
         title: "ROMAN",
         newsImage:
           "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*"
+      },
+      {
+        id: 3,
+        user: {
+          name: "Peter",
+          avatar: null
+        },
+        text: "asdasasdasd",
+        title: "ROMAN",
+        newsImage:
+          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*"
+      },
+      {
+        id: 4,
+        user: {
+          name: "Peter",
+          avatar: null
+        },
+        text: "asdasasdasd",
+        title: "ROMAN",
+        newsImage:
+          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*"
+      },
+      {
+        id: 5,
+        user: {
+          name: "Peter",
+          avatar: null
+        },
+        text: "asdasasdasd",
+        title: "Peka",
+        newsImage:
+          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*"
+      },
+      {
+        id: 6,
+        user: {
+          name: "Peter",
+          avatar: null
+        },
+        text: "asdasasdasd",
+        title: "Lola",
+        newsImage:
+          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*"
       }
     ]
   }
@@ -58,6 +102,7 @@ const postsReducer = (state = initialState, action: any) => {
       };
     }
     case types.DELETE_POST: {
+      console.log(action.data)
       return {
         ...state,
         postsPage: {

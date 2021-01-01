@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./post.css";
-import { Avatar, Typography, Menu, Space, Dropdown } from "antd";
+import { Avatar, Typography, Menu, Space, Dropdown, Popconfirm, Input, Button } from "antd";
 import { UserOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { actionCreator } from "../../store/actions";
 
 interface User {
   name: string;
@@ -16,23 +18,48 @@ export interface IProps {
   newsImage: string;
 }
 
-const menu = (
-  <Menu onClick={(e) => console.log(e)}>
-    <Menu.Item key="1" icon={<EditOutlined />}>
-      Edit
-    </Menu.Item>
-    <Menu.Item key="2" icon={<DeleteOutlined />}>
-      Delete
-    </Menu.Item>
-  </Menu>
-);
-
 export function Post(props: IProps) {
-  console.log(props);
+  const dispatch = useDispatch();
+  const [editStatus, setEditStatus] = useState(false);
+  const [text, setText] = useState(props.text);
+  const [title, setTitle] = useState(props.title);
 
-  function handleDropdown(e) {
-    console.log(e);
+  function handleDropdown(e: any) {
+    if (e.key === '1') {
+      setEditStatus(true);
+    }
   }
+
+  function handleEditInputText(e:any) {
+    setText(e.target.value);
+  }
+
+  function handleEditInputTitle(e:any) {
+    setTitle(e.target.value);
+  }
+
+  function handleEditModeConfirm() {
+    const editedPost = {
+      ...props,
+      text: text,
+      title: title,
+    }
+    dispatch(actionCreator().changePost(editedPost));
+    setEditStatus(false);
+  }
+
+  const menu = (
+    <Menu onClick={handleDropdown}>
+      <Menu.Item key="1" icon={<EditOutlined />}>
+        Edit
+      </Menu.Item>
+      <Menu.Item key="2" icon={<DeleteOutlined />}>
+        <Popconfirm title="Are you sure？" okText="Yes" cancelText="No"  onConfirm={() => dispatch(actionCreator().deletePost(props.id))}>
+          <a href="#">Delete</a>
+        </Popconfirm>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <div className="post-container">
@@ -45,19 +72,32 @@ export function Post(props: IProps) {
           )}
           <p className="post-container_user-name">{props.user.name}</p>
         </Space>
-        <Dropdown.Button overlay={menu}>Settings</Dropdown.Button>
+        { editStatus ? null : <Dropdown.Button overlay={menu}>Settings</Dropdown.Button> }
       </div>
       <div className="post-container_content">
-        <Typography.Title level={4}>{props.title}</Typography.Title>
-        <Typography.Paragraph className="post-container_content-text">
-          {props.text}
-        </Typography.Paragraph>
-        <div className="post-container_content-image-container">
-          {props.newsImage ? (
-            <img src={props.newsImage} alt="background" />
-          ) : null}
-        </div>
+        {
+          editStatus ? <>
+            <Input placeholder='Enter posts Title' value={title} onChange={handleEditInputTitle}/>
+            <Input.TextArea placeholder='Enter text' value={text} onChange={handleEditInputText} />
+          </> : <>
+            <Typography.Title level={4}>{props.title}</Typography.Title>
+            <Typography.Paragraph className="post-container_content-text">
+              {props.text}
+            </Typography.Paragraph>
+            <div className="post-container_content-image-container">
+              {props.newsImage ? (
+                <img src={props.newsImage} alt="background" />
+              ) : null}
+            </div>
+          </>
+        }
       </div>
+      { editStatus ? <div className="post-container_controls">
+        <Button onClick={() => handleEditModeConfirm()}>Ok</Button>
+        <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={() => setEditStatus(false)}>
+          <Button>Cancel</Button>
+        </Popconfirm>
+      </div> : null }
     </div>
   );
 }

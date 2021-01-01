@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Input } from "antd";
 import { actionCreator } from "../../store/actions";
 
 export default function PostModal() {
-  const { visability, type } = useSelector(
-    (state) => state.modalReducer.modalWindow
-  );
+  const visability = useSelector((state: any) => state.modalReducer.modalWindow.visability);
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
@@ -38,11 +36,11 @@ export default function PostModal() {
     dispatch(actionCreator().closeModal());
   }
 
-  function titleChage(e) {
+  function titleChage(e: any) {
     setTitle(e.target.value);
   }
 
-  function textChange(e) {
+  function textChange(e: any) {
     setText(e.target.value);
   }
 

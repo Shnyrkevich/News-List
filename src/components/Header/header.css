@@ -1,7 +1,21 @@
-.header-container {
+.header {
   height: 6vh;
   width: 100vw;
-  background-color: darkcyan;
+  background: #000d24;
+}
+
+.header-content {
+  height: 80%;
+  width: 90%;
+}
+
+.header-content h2 {
+  margin-bottom: auto;
+  color: white;
+}
+
+.header, 
+.header-content {
   display: flex;
   justify-content: center;
   align-items: center;

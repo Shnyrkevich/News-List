@@ -2,8 +2,7 @@ import { types } from "../actions";
 
 const initialState = {
   modalWindow: {
-    visability: false,
-    type: ""
+    visability: false
   }
 };
 
@@ -13,8 +12,7 @@ export default function modalReducer(state = initialState, action: any) {
       return {
         ...state,
         modalWindow: {
-          visability: true,
-          type: action.data
+          visability: true
         }
       };
     }
@@ -23,7 +21,6 @@ export default function modalReducer(state = initialState, action: any) {
         ...state,
         modalWindow: {
           visability: false,
-          type: ""
         }
       };
     }

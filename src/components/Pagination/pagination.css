@@ -1,0 +1,7 @@
+.ant-pagination {
+    width: 69%;
+    margin: 10px auto 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
