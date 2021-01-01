@@ -1,0 +1,8 @@
+.header-container {
+  height: 6vh;
+  width: 100vw;
+  background-color: darkcyan;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
