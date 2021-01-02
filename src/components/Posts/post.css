@@ -10,6 +10,11 @@
   align-items: center;
 }
 
+.post-container .tags-peacker {
+  width: 95%;
+  margin-bottom: 10px;
+}
+
 .post-container_user {
   margin-top: 5px;
   display: flex;
@@ -54,3 +59,5 @@
 .post-container_controls button {
   margin-left: 10px;
 }
+
+

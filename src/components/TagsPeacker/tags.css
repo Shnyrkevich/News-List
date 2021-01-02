@@ -1,0 +1,29 @@
+.site-tag-plus {
+  background: #ffffff;
+  border-style: dashed;
+}
+
+.edit-tag {
+  user-select: none;
+}
+
+.tag-input {
+  width: 78px;
+  margin-right: 8px;
+  vertical-align: top;
+}
+
+.tags-peacker {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+.tags-peacker span,
+.tags-peacker input {
+  margin-top: 3px;
+}

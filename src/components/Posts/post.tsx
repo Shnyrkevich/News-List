@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./post.css";
-import { Avatar, Typography, Menu, Space, Dropdown, Popconfirm, Input, Button } from "antd";
+import { Avatar, Typography, Menu, Space, Dropdown, Popconfirm, Input, Button, Tag } from "antd";
 import { UserOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { actionCreator } from "../../store/actions";
+import TagsPeacker from "../TagsPeacker/TagsPeacker";
 
 interface User {
   name: string;
@@ -16,13 +17,17 @@ export interface IProps {
   title: string;
   text: string;
   newsImage: string;
+  tags: string[]
 }
+
+const tagsColors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
 
 export function Post(props: IProps) {
   const dispatch = useDispatch();
   const [editStatus, setEditStatus] = useState(false);
   const [text, setText] = useState(props.text);
   const [title, setTitle] = useState(props.title);
+  const [tags, setTags] = useState(props.tags);
 
   function handleDropdown(e: any) {
     if (e.key === '1') {
@@ -38,11 +43,16 @@ export function Post(props: IProps) {
     setTitle(e.target.value);
   }
 
+  function changeTags(currentTags: string[]) {
+    setTags(currentTags);
+  }
+
   function handleEditModeConfirm() {
     const editedPost = {
       ...props,
       text: text,
       title: title,
+      tags: tags
     }
     dispatch(actionCreator().changePost(editedPost));
     setEditStatus(false);
@@ -92,12 +102,21 @@ export function Post(props: IProps) {
           </>
         }
       </div>
-      { editStatus ? <div className="post-container_controls">
-        <Button onClick={() => handleEditModeConfirm()}>Ok</Button>
-        <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={() => setEditStatus(false)}>
-          <Button>Cancel</Button>
-        </Popconfirm>
-      </div> : null }
+      <div className="tags-peacker">
+        { 
+          editStatus ? 
+          <TagsPeacker setTags={changeTags} searchingTags={tags} /> :
+          tags.map((el: string, ind: number) => <Tag key={ind} color={tagsColors[Math.ceil(Math.random() * (tagsColors.length - 0))]}>{el}</Tag>)
+        }
+      </div>
+      { editStatus ? 
+        <div className="post-container_controls">
+          <Button onClick={() => handleEditModeConfirm()}>Ok</Button>
+          <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={() => setEditStatus(false)}>
+            <Button>Cancel</Button>
+          </Popconfirm>
+        </div> : null
+      }
     </div>
   );
 }

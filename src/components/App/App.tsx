@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./styles.css";
 import "antd/dist/antd.css";
 import Header from "../Header/header";
@@ -6,6 +6,7 @@ import PostsList from "../Posts/posts";
 import PostModal from "../Edit-post-modal/Modal";
 import PostsQuantitySelect from '../Pagination/PostsQuantitySelect';
 import PostsPagination from '../Pagination/PostsPagination';
+import SearchTagsPeacker from '../TagsPeacker/SearchTagsPeacker';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <Header />
       <div className="app-controlls">
         <PostsQuantitySelect />
+        <SearchTagsPeacker />
       </div>
       <PostsList />
       <PostModal />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Input } from "antd";
 import { actionCreator } from "../../store/actions";
+import TagsPeacker from '../TagsPeacker/TagsPeacker';
 
 export default function PostModal() {
   const visability = useSelector((state: any) => state.modalReducer.modalWindow.visability);
@@ -9,11 +10,13 @@ export default function PostModal() {
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     if (!visability) {
       setTitle("");
       setText("");
+      setTags([]);
     }
   }, [visability]);
 
@@ -30,7 +33,8 @@ export default function PostModal() {
       },
       text: text,
       title: title,
-      newsImage: ""
+      newsImage: "",
+      tags: tags
     };
     dispatch(actionCreator().addNewPost(newPost));
     dispatch(actionCreator().closeModal());
@@ -42,6 +46,10 @@ export default function PostModal() {
 
   function textChange(e: any) {
     setText(e.target.value);
+  }
+
+  function changeTags(currentTags: any) {
+    setTags(currentTags);
   }
 
   return (
@@ -65,6 +73,8 @@ export default function PostModal() {
         allowClear
         onChange={textChange}
       />
+      Tags
+      <TagsPeacker searchingTags={tags} setTags={changeTags} />
     </Modal>
   );
 }
