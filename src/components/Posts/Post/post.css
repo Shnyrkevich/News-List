@@ -23,6 +23,7 @@
 }
 
 .post-container_content {
+  margin-top: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;

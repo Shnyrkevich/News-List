@@ -1,4 +1,4 @@
-import { types } from "../actions";
+import { types } from '../actions';
 
 const initialState = {
   modalWindow: {
@@ -8,19 +8,11 @@ const initialState = {
 
 export default function modalReducer(state = initialState, action: any) {
   switch (action.type) {
-    case types.OPEN_MODAL: {
+    case types.CHANGE_MODA_VISABILITY: {
       return {
         ...state,
         modalWindow: {
-          visability: true
-        }
-      };
-    }
-    case types.CLOSE_MODAL: {
-      return {
-        ...state,
-        modalWindow: {
-          visability: false,
+          visability: !state.modalWindow.visability
         }
       };
     }

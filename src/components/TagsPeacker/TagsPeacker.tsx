@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './tags.css';
 import { Tag, Input, Tooltip } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -14,17 +14,20 @@ export default function TagsPeacker(props: IProps) {
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState('');
 
+  const inputRefStart = React.useRef<any>(null);
+  const inputRef = React.useRef<any>(null);
+
   function handleClose(removedTag: string) {
     props.setTags(props.searchingTags.filter((tag: string) => (tag) !== removedTag));
-  };
+  }
 
   function showInput() {
     setInputVisible(true);
-  };
+  }
 
   function handleInputChange(e: any) {
     setInputValue(e.target.value);
-  };
+  }
 
   function handleInputConfirm() {
     if (inputValue && props.searchingTags.indexOf(inputValue) === -1) {
@@ -32,11 +35,11 @@ export default function TagsPeacker(props: IProps) {
     }
     setInputVisible(false);
     setInputValue('');
-  };
+  }
 
   function handleEditInputChange(e: any) {
     setEditInputValue(e.target.value);
-  };
+  }
 
   function handleEditInputConfirm() {
     const newTags = [...props.searchingTags];
@@ -44,7 +47,7 @@ export default function TagsPeacker(props: IProps) {
     props.setTags(newTags);
     setEditInputValue('');
     setEditInputIndex(-1);
-  };
+  }
 
   return (
     <div className='tags-peacker'>
@@ -52,9 +55,10 @@ export default function TagsPeacker(props: IProps) {
         if (editInputIndex === index) {
           return (
             <Input
+              ref={inputRefStart}
               key={tag}
-              size="small"
-              className="tag-input"
+              size='small'
+              className='tag-input'
               value={editInputValue}
               onChange={handleEditInputChange}
               onBlur={handleEditInputConfirm}
@@ -67,7 +71,7 @@ export default function TagsPeacker(props: IProps) {
 
         const tagElem = (
           <Tag
-            className="edit-tag"
+            className='edit-tag'
             key={tag}
             closable={true}
             onClose={() => handleClose(tag)}
@@ -93,9 +97,10 @@ export default function TagsPeacker(props: IProps) {
       })}
       {inputVisible && (
         <Input
-          type="text"
-          size="small"
-          className="tag-input"
+          ref={inputRef}
+          type='text'
+          size='small'
+          className='tag-input'
           value={inputValue}
           onChange={handleInputChange}
           onBlur={handleInputConfirm}
@@ -103,7 +108,7 @@ export default function TagsPeacker(props: IProps) {
         />
       )}
       {!inputVisible && (
-        <Tag className="site-tag-plus" onClick={showInput}>
+        <Tag className='site-tag-plus' onClick={showInput}>
           <PlusOutlined /> New Tag
         </Tag>
       )}

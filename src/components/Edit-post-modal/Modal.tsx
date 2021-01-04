@@ -1,43 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Input } from "antd";
-import { actionCreator } from "../../store/actions";
+import { Modal, Input } from 'antd';
+import { actionCreator } from '../../store/actions';
 import TagsPeacker from '../TagsPeacker/TagsPeacker';
 
 export default function PostModal() {
   const visability = useSelector((state: any) => state.modalReducer.modalWindow.visability);
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    if (!visability) {
-      setTitle("");
-      setText("");
+    if (visability) {
+      setTitle('');
+      setText('');
       setTags([]);
     }
   }, [visability]);
 
   function handelCancel() {
-    dispatch(actionCreator().closeModal());
+    dispatch(actionCreator().changeModalVisability());
   }
 
   function handleOk() {
     if (!text.length && !title.length) return;
     const newPost = {
       user: {
-        name: "Peter",
+        name: 'Peter',
         avatar: null
       },
       text: text,
       title: title,
-      newsImage: "",
-      tags: tags
+      tags: tags,
+      date: new Date().toString()
     };
     dispatch(actionCreator().addNewPost(newPost));
-    dispatch(actionCreator().closeModal());
+    dispatch(actionCreator().changeModalVisability());
   }
 
   function titleChage(e: any) {
@@ -54,7 +54,7 @@ export default function PostModal() {
 
   return (
     <Modal
-      title="Create new Post"
+      title='Create new Post'
       visible={visability}
       onOk={handleOk}
       onCancel={handelCancel}
@@ -62,16 +62,17 @@ export default function PostModal() {
       Title
       <Input
         value={title}
-        placeholder="Enter posts title"
+        placeholder='Enter posts title'
         allowClear
         onChange={titleChage}
       />
       Text
       <Input.TextArea
         value={text}
-        placeholder="Enter text"
+        placeholder='Enter text'
         allowClear
         onChange={textChange}
+        autoSize
       />
       Tags
       <TagsPeacker searchingTags={tags} setTags={changeTags} />

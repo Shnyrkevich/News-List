@@ -6,22 +6,26 @@ import { actionCreator } from '../../store/actions';
 const { Option } = Select;
 
 export default function PostsQuantitySelect() {
-    const dispatch = useDispatch();
-    const quantity = useSelector((state: any) => state.postsQuantityReducer.postsQuantity.quantity);
+  const dispatch = useDispatch();
+  const quantity = useSelector((state: any) => state.postsQuantityReducer.postsQuantity.quantity);
 
-    function handleChange(value: string) {
-        dispatch(actionCreator().changePostsQuantity(Number(value)));
-        dispatch(actionCreator().changePage(1));
-    }
+  function handleChange(value: string) {
+    dispatch(actionCreator().changePostsQuantity(Number(value)));
+    dispatch(actionCreator().changePage(1));
+  }
 
-    return (
-        <>
-        Posts on page 
-        <Select defaultValue={quantity} style={{ width: 120 }} onChange={handleChange}>
-            <Option value="3">3</Option>
-            <Option value="5">5</Option>
-            <Option value="10">10</Option>
+  return (
+    <>
+      Posts on page 
+      <Select
+        defaultValue={quantity} style={{ width: 120 }}
+        onChange={handleChange}
+        size='small'
+      >
+        <Option value='3'>3</Option>
+        <Option value='5'>5</Option>
+        <Option value='10'>10</Option>
         </Select>
-        </>
-    );
+    </>
+  );
 }

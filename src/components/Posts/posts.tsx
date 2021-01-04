@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
-import "./posts.css";
+import React, { useEffect } from 'react';
+import './posts.css';
 import { Empty } from 'antd';
-import { useDispatch, useSelector } from "react-redux";
-import { Post, IProps } from "./post";
-import { actionCreator } from "../../store/actions";
+import { useDispatch, useSelector } from 'react-redux';
+import { Post } from './Post/post';
+import { actionCreator } from '../../store/actions';
+import { IProps } from '../../store/reducers/postsReducer';
+import { dateFix } from '../../utils/dateFix';
 
 export default function PostsList() {
   const dispatch = useDispatch();
@@ -11,22 +13,19 @@ export default function PostsList() {
   const tags = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
   const { actualPage, quantity } = useSelector((state: any) => state.postsQuantityReducer.postsQuantity);
 
-  let currentPosts = tags.length ? posts.filter((el: IProps) => {
-    let tagStatus = false;
-    for (let i = 0; i < tags.length; i++) {
-      if (el.tags.includes(tags[i])) {
-        tagStatus = true;
-      }
+  let currentPosts = tags.length ? dateFix(posts).filter((el: IProps) => tags.reduce((acc: boolean, tag: string) => {
+    if (el.tags.includes(tag)) {
+      acc = true;
     }
-    return tagStatus;
-  }) : posts;
+    return acc;
+  }, false)) : dateFix(posts);
 
   useEffect(() => {
     dispatch(actionCreator().setActualPosts(currentPosts));
-  }, [tags])
+  }, [tags, posts])
 
   return (
-    <div className="posts-container">
+    <div className='posts-container'>
       {currentPosts.length ? currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: IProps) => <Post {...el} key={el.id} />) : <Empty />}
     </div>
   );

@@ -1,4 +1,5 @@
-import { types } from "../actions";
+import { types } from '../actions';
+import { dateFix } from '../../utils/dateFix';
 
 const initialState = {
   postsPage: {
@@ -7,78 +8,86 @@ const initialState = {
       {
         id: 1,
         user: {
-          name: "Peter",
+          name: 'Peter',
           avatar: null
         },
-        text: "asdasasdasd",
-        title: "ROMAN",
-        newsImage:
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*",
-        tags: ['nature', 'scince', 'happy new year']
+        text: 'asdasasdasd',
+        title: 'ROMAN',
+        tags: ['nature', 'scince', 'happy new year'],
+        date: 'Mon Jan 04 2021 18:11:35 GMT+0300 (Москва, стандартное время)'
       },
       {
         id: 2,
         user: {
-          name: "Peter",
+          name: 'Peter',
           avatar: null
         },
-        text: "asdasasdasd",
-        title: "ROMAN",
-        newsImage:
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*",
-        tags: ['nature', 'scince', 'happy new year']
+        text: 'asdasasdasd',
+        title: 'ROMAN',
+        tags: ['nature', 'scince', 'happy new year'],
+        date: 'Mon Jan 04 2021 18:11:35 GMT+0300 (Москва, стандартное время)'
       },
       {
         id: 3,
         user: {
-          name: "Peter",
+          name: 'Peter',
           avatar: null
         },
-        text: "asdasasdasd",
-        title: "ROMAN",
-        newsImage:
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*",
-        tags: ['nature', 'scince', 'happy new year']
+        text: 'asdasasdasd',
+        title: 'ROMAN',
+        tags: ['nature', 'scince', 'happy new year'],
+        date: 'Mon Jan 04 2021 18:11:35 GMT+0300 (Москва, стандартное время)'
       },
       {
         id: 4,
         user: {
-          name: "Peter",
+          name: 'Peter',
           avatar: null
         },
-        text: "asdasasdasd",
-        title: "ROMAN",
-        newsImage:
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*",
-        tags: ['nature', 'scince', 'happy new year']
+        text: 'asdasasdasd',
+        title: 'ROMAN',
+        tags: ['nature', 'scince', 'happy new year'],
+        date: 'Mon Jan 04 2021 18:11:35 GMT+0300 (Москва, стандартное время)'
       },
       {
         id: 5,
         user: {
-          name: "Peter",
+          name: 'Peter',
           avatar: null
         },
-        text: "asdasasdasd",
-        title: "Peka",
-        newsImage:
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*",
-        tags: ['nature', 'scince', 'happy new year']
+        text: 'asdasasdasd',
+        title: 'Peka',
+        tags: ['nature', 'scince', 'happy new year'],
+        date: 'Mon Jan 04 2021 18:11:35 GMT+0300 (Москва, стандартное время)'
       },
       {
         id: 6,
         user: {
-          name: "Peter",
+          name: 'Peter',
           avatar: null
         },
-        text: "asdasasdasd",
-        title: "Lola",
-        newsImage:
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baby-yoda-old-yoda-1574103229.jpg?crop=0.486xw:0.973xh;0.514xw,0&resize=980:*",
-        tags: ['nature', 'scince', 'happy new year']
+        text: 'asdasasdasd',
+        title: 'Lola',
+        tags: ['nature', 'scince', 'happy new year'],
+        date: 'Mon Jan 04 2021 18:11:35 GMT+0300 (Москва, стандартное время)'
       }
     ]
   }
 };
+
+interface User {
+  name: string;
+  avatar: string;
+}
+
+export interface IProps {
+  id: number;
+  user: User;
+  title: string;
+  text: string;
+  tags: string[],
+  date: string
+}
 
 const postsReducer = (state = initialState, action: any) => {
   switch (action.type) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import TagsPeacker from './TagsPeacker';
@@ -10,6 +10,10 @@ export default function SearchTagsPeacker() {
   function setTags(currentTags: string[]) {
     dispatch(actionCreator().setTags(currentTags));
   }
+
+  useEffect(() => {
+    dispatch(actionCreator().changePage(1));
+  }, [tags])
 
   return <TagsPeacker searchingTags={tags} setTags={setTags} />
 }

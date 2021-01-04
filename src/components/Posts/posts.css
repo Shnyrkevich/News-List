@@ -4,3 +4,9 @@
   flex-direction: column;
   margin: 0 auto;
 }
+
+@media only screen and (max-width: 600px) {
+  .posts-container {
+    width: 90%;
+  }
+}

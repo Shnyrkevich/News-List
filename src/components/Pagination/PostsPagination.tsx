@@ -7,15 +7,15 @@ import { actionCreator } from '../../store/actions';
 export default function PostsPagination() {
     const dispatch = useDispatch();
     const { actualPage, quantity } = useSelector((state: any) => state.postsQuantityReducer.postsQuantity);
-    const posts = useSelector((state: any) => state.postsReducer.postsPage.actualPosts);
+    const { posts, actualPosts } = useSelector((state: any) => state.postsReducer.postsPage);
     
     function handlePageChange(page: number) {
         dispatch(actionCreator().changePage(page));
     }
 
-    return <Pagination 
+    return <Pagination
         current={actualPage}
-        total={ posts.length }
+        total={ actualPosts.length }
         pageSize={quantity}
         onChange={handlePageChange}
     />;
