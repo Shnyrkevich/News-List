@@ -5,11 +5,11 @@ import { UserOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { actionCreator } from '../../../store/actions';
 import TagsPeacker from '../../TagsPeacker/TagsPeacker';
-import { IProps } from '../../../store/reducers/postsReducer';
+import { IPost } from '../../../store/reducers/postsReducer';
 
 const tagsColors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
 
-export function Post(props: IProps) {
+export function Post(props: IPost) {
   const dispatch = useDispatch();
   const [editStatus, setEditStatus] = useState(false);
   const [text, setText] = useState(props.text);
@@ -68,7 +68,7 @@ export function Post(props: IProps) {
             <Avatar icon={<UserOutlined />} size={50} />
           )}
           <Space direction='vertical'>
-            <Typography.Text className='post-container_user-name'>{props.user.name}</Typography.Text>
+            <Typography.Text className='post-container_user-name'>{props.user.login}</Typography.Text>
             <Typography.Text type="secondary">{props.date}</Typography.Text>
           </Space>
         </Space>

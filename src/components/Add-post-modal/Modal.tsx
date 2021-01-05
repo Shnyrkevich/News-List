@@ -5,7 +5,8 @@ import { actionCreator } from '../../store/actions';
 import TagsPeacker from '../TagsPeacker/TagsPeacker';
 
 export default function PostModal() {
-  const visability = useSelector((state: any) => state.modalReducer.modalWindow.visability);
+  const visability = useSelector((state: any) => state.modalReducer.modalWindow.postModalVisability);
+  const authUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser.user)
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
@@ -28,8 +29,9 @@ export default function PostModal() {
     if (!text.length && !title.length) return;
     const newPost = {
       user: {
-        name: 'Peter',
-        avatar: null
+        id: authUser.id,
+        login: authUser.login,
+        avatar: authUser.avatar
       },
       text: text,
       title: title,

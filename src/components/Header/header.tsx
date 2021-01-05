@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './header.css';
 import { Button, Typography } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import { actionCreator } from '../../store/actions';
 
 export default function Header() {
+  const authUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser);
   const dispatch = useDispatch();
 
   return (
@@ -14,13 +14,13 @@ export default function Header() {
         <Typography.Title level={2} className='header-title'>
           News list
         </Typography.Title>
-        <Button
-          ghost
-          icon={<PlusOutlined />}
-          onClick={() => dispatch(actionCreator().changeModalVisability())}
-        >
-          Add new post
-        </Button>
+        {
+          authUser.isAuth ?
+          null :
+          <Button onClick={() => dispatch(actionCreator().changeAuthorizationModalVisability())}>
+            LogIn
+          </Button>
+        }
       </div>
     </header>
   );

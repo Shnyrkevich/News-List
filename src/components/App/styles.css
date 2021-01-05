@@ -12,3 +12,9 @@
   flex-direction: column;
   justify-content: left;
 }
+
+.app-controlls_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

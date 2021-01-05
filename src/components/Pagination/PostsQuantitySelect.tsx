@@ -15,7 +15,7 @@ export default function PostsQuantitySelect() {
   }
 
   return (
-    <>
+    <div className='post-quantity-select'>
       Posts on page 
       <Select
         defaultValue={quantity} style={{ width: 120 }}
@@ -25,7 +25,7 @@ export default function PostsQuantitySelect() {
         <Option value='3'>3</Option>
         <Option value='5'>5</Option>
         <Option value='10'>10</Option>
-        </Select>
-    </>
+      </Select>
+    </div>
   );
 }

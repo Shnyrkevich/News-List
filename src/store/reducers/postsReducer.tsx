@@ -1,5 +1,4 @@
 import { types } from '../actions';
-import { dateFix } from '../../utils/dateFix';
 
 const initialState = {
   postsPage: {
@@ -8,7 +7,8 @@ const initialState = {
       {
         id: 1,
         user: {
-          name: 'Peter',
+          id: 1,
+          login: 'Peter',
           avatar: null
         },
         text: 'asdasasdasd',
@@ -19,7 +19,8 @@ const initialState = {
       {
         id: 2,
         user: {
-          name: 'Peter',
+          id: 1,
+          login: 'Peter',
           avatar: null
         },
         text: 'asdasasdasd',
@@ -30,7 +31,8 @@ const initialState = {
       {
         id: 3,
         user: {
-          name: 'Peter',
+          id: 1,
+          login: 'Peter',
           avatar: null
         },
         text: 'asdasasdasd',
@@ -41,7 +43,8 @@ const initialState = {
       {
         id: 4,
         user: {
-          name: 'Peter',
+          id: 1,
+          login: 'Peter',
           avatar: null
         },
         text: 'asdasasdasd',
@@ -52,7 +55,8 @@ const initialState = {
       {
         id: 5,
         user: {
-          name: 'Peter',
+          id: 1,
+          login: 'Peter',
           avatar: null
         },
         text: 'asdasasdasd',
@@ -63,7 +67,8 @@ const initialState = {
       {
         id: 6,
         user: {
-          name: 'Peter',
+          id: 1,
+          login: 'Peter',
           avatar: null
         },
         text: 'asdasasdasd',
@@ -76,12 +81,13 @@ const initialState = {
 };
 
 interface User {
-  name: string;
+  id?: number
+  login: string;
   avatar: string;
 }
 
-export interface IProps {
-  id: number;
+export interface IPost {
+  id?: number;
   user: User;
   title: string;
   text: string;

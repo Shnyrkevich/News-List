@@ -15,5 +15,7 @@ export default function SearchTagsPeacker() {
     dispatch(actionCreator().changePage(1));
   }, [tags])
 
-  return <TagsPeacker searchingTags={tags} setTags={setTags} />
+  return <>
+    Add tag to search <TagsPeacker searchingTags={tags} setTags={setTags} />
+  </>;
 }

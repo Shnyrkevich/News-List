@@ -4,21 +4,19 @@ import 'antd/dist/antd.css';
 import { BackTop } from 'antd';
 import Header from '../Header/header';
 import PostsList from '../Posts/posts';
-import PostModal from '../Edit-post-modal/Modal';
-import PostsQuantitySelect from '../Pagination/PostsQuantitySelect';
+import PostModal from '../Add-post-modal/Modal';
 import PostsPagination from '../Pagination/PostsPagination';
-import SearchTagsPeacker from '../TagsPeacker/SearchTagsPeacker';
+import AuthorizationModal from '../AuthorizationModal/AuthorizationModal';
+import AppControls from '../App-contolls/AppControls';
 
 export default function App() {
   return (
     <div className='App'>
       <Header />
-      <div className='app-controlls'>
-        <PostsQuantitySelect />
-        <SearchTagsPeacker />
-      </div>
+      <AppControls />
       <PostsList />
       <PostModal />
+      <AuthorizationModal />
       <PostsPagination />
       <BackTop />
     </div>

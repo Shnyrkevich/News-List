@@ -4,7 +4,7 @@ import { Empty } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Post } from './Post/post';
 import { actionCreator } from '../../store/actions';
-import { IProps } from '../../store/reducers/postsReducer';
+import { IPost } from '../../store/reducers/postsReducer';
 import { dateFix } from '../../utils/dateFix';
 
 export default function PostsList() {
@@ -13,7 +13,7 @@ export default function PostsList() {
   const tags = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
   const { actualPage, quantity } = useSelector((state: any) => state.postsQuantityReducer.postsQuantity);
 
-  let currentPosts = tags.length ? dateFix(posts).filter((el: IProps) => tags.reduce((acc: boolean, tag: string) => {
+  let currentPosts = tags.length ? dateFix(posts).filter((el: IPost) => tags.reduce((acc: boolean, tag: string) => {
     if (el.tags.includes(tag)) {
       acc = true;
     }
@@ -26,7 +26,7 @@ export default function PostsList() {
 
   return (
     <div className='posts-container'>
-      {currentPosts.length ? currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: IProps) => <Post {...el} key={el.id} />) : <Empty />}
+      {currentPosts.length ? currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: IPost) => <Post {...el} key={el.id} />) : <Empty />}
     </div>
   );
 }
