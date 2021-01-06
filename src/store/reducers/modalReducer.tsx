@@ -3,7 +3,8 @@ import { types } from '../actions';
 const initialState = {
   modalWindow: {
     postModalVisability: false,
-    authorizationModalVisability: false
+    authorizationModalVisability: false,
+    editUserModalVisability: false,
   }
 };
 
@@ -26,6 +27,15 @@ export default function modalReducer(state = initialState, action: any) {
           authorizationModalVisability: !state.modalWindow.authorizationModalVisability
         }
       };
+    }
+    case types.CHANGE_USER_MODAL_VISABILITY: {
+      return {
+        ...state,
+        modalWindow: {
+          ...state.modalWindow,
+          editUserModalVisability: !state.modalWindow.editUserModalVisability
+        }
+      }
     }
     default: {
       return state;

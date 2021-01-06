@@ -8,6 +8,7 @@ import PostModal from '../Add-post-modal/Modal';
 import PostsPagination from '../Pagination/PostsPagination';
 import AuthorizationModal from '../AuthorizationModal/AuthorizationModal';
 import AppControls from '../App-contolls/AppControls';
+import EditUserModal from '../EditUserModal/EditUserModal';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <PostsList />
       <PostModal />
       <AuthorizationModal />
+      <EditUserModal />
       <PostsPagination />
       <BackTop />
     </div>

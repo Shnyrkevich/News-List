@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Form, Input, Button, Modal, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
 
 const layout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 6 },
   wrapperCol: { span: 16 },
 };
 
 const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { offset: 6, span: 16 },
 };
 
 interface IForm {
@@ -24,12 +24,14 @@ export default function AuthorizationModal() {
   const users = useSelector((state: any) => state.userAuthorizationReducer.usersData);
   const visability = useSelector((state: any) => state.modalReducer.modalWindow.authorizationModalVisability);
   const [registrationStatus, setRegistrationStatus] = useState(false);
+  const form = useRef<any>(null);
 
   const onLogInFinish = (values: IForm) => {
     const userStatus = users.find((el: IUser) => el.login === values.login && el.password === values.password);
     if ( userStatus ) {
       dispatch(actionCreator().logIn(userStatus))
       dispatch(actionCreator().changeAuthorizationModalVisability());
+      resetFrom();
     } else {
       message.error('Incorret login or password');
     }
@@ -42,6 +44,12 @@ export default function AuthorizationModal() {
       avatar: ''
     }));
     dispatch(actionCreator().changeAuthorizationModalVisability());
+    setRegistrationStatus(false);
+    resetFrom();
+  }
+
+  const resetFrom = () => {
+    form.current!.resetFields();
   }
 
   return (
@@ -57,6 +65,7 @@ export default function AuthorizationModal() {
     >
       <Form
         {...layout}
+        ref={form}
         name="user-uthorization"
         onFinish={registrationStatus ? onRegistrationFinish : onLogInFinish}
       >

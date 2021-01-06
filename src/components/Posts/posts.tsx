@@ -9,6 +9,7 @@ import { dateFix } from '../../utils/dateFix';
 
 export default function PostsList() {
   const dispatch = useDispatch();
+  const authUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser);
   const posts = useSelector((state: any) => state.postsReducer.postsPage.posts);
   const tags = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
   const { actualPage, quantity } = useSelector((state: any) => state.postsQuantityReducer.postsQuantity);
@@ -26,7 +27,7 @@ export default function PostsList() {
 
   return (
     <div className='posts-container'>
-      {currentPosts.length ? currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: IPost) => <Post {...el} key={el.id} />) : <Empty />}
+      {currentPosts.length ? currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: IPost) => <Post post={el} userPost={authUser.isAuth ? authUser.id === el.user.id : false} key={el.id} />) : <Empty />}
     </div>
   );
 }

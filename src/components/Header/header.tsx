@@ -1,12 +1,40 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './header.css';
-import { Button, Typography } from 'antd';
+import { Button, Typography, Space, Avatar, Dropdown, Menu, Popconfirm } from 'antd';
+import { UserOutlined, EditOutlined, DeleteOutlined, ExportOutlined } from '@ant-design/icons';
 import { actionCreator } from '../../store/actions';
 
 export default function Header() {
   const authUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser);
   const dispatch = useDispatch();
+
+  function handleDropdownClick(e: any) {
+    switch(e.key) {
+      case '1':
+        dispatch(actionCreator().changeUserModalVisability());
+        break;
+      case '3':
+        dispatch(actionCreator().userExit());
+        break;
+    }
+  }
+
+  const menu = (
+    <Menu onClick={handleDropdownClick}>
+      <Menu.Item key="1">
+        Edit <EditOutlined />
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Popconfirm title='Are you sure？' okText='Yes' cancelText='No'  onConfirm={() => dispatch(actionCreator().deleteUser(authUser.user.id))}>
+          Delete <DeleteOutlined />
+        </Popconfirm>
+      </Menu.Item>
+      <Menu.Item key="3">
+        Exit <ExportOutlined />
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <header className='header'>
@@ -16,7 +44,18 @@ export default function Header() {
         </Typography.Title>
         {
           authUser.isAuth ?
-          null :
+          <Dropdown overlay={menu} trigger={['click']}>
+            <Space align='center'>
+              {authUser.user.avatar ? (
+                <Avatar src={authUser.user.avatar} size={28} />
+              ) : (
+                <Avatar icon={<UserOutlined />} size={28} />
+              )}
+              <Space direction='vertical'>
+                <Typography.Text className='post-container_user-name' style={{color: 'white'}}>{authUser.user.login}</Typography.Text>
+              </Space>
+            </Space>
+          </Dropdown> :
           <Button onClick={() => dispatch(actionCreator().changeAuthorizationModalVisability())}>
             LogIn
           </Button>

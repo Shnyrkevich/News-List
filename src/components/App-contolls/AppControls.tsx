@@ -16,8 +16,6 @@ export default function AppControls() {
       {
         authUser.isAuth ? 
         <Button
-          type="primary"
-          ghost
           icon={<PlusOutlined />}
           onClick={() => dispatch(actionCreator().changeModalVisability())}
         >

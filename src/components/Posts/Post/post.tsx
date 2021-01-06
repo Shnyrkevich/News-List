@@ -9,12 +9,18 @@ import { IPost } from '../../../store/reducers/postsReducer';
 
 const tagsColors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
 
-export function Post(props: IPost) {
+interface IProps {
+  post: IPost
+  userPost: boolean
+}
+
+export function Post(props: IProps) {
+  console.log(props)
   const dispatch = useDispatch();
   const [editStatus, setEditStatus] = useState(false);
-  const [text, setText] = useState(props.text);
-  const [title, setTitle] = useState(props.title);
-  const [tags, setTags] = useState(props.tags);
+  const [text, setText] = useState(props.post.text);
+  const [title, setTitle] = useState(props.post.title);
+  const [tags, setTags] = useState(props.post.tags);
 
   function handleDropdown(e: any) {
     if (e.key === '1') {
@@ -51,7 +57,7 @@ export function Post(props: IPost) {
         Edit
       </Menu.Item>
       <Menu.Item key='2' icon={<DeleteOutlined />}>
-        <Popconfirm title='Are you sure？' okText='Yes' cancelText='No'  onConfirm={() => dispatch(actionCreator().deletePost(props.id))}>
+        <Popconfirm title='Are you sure？' okText='Yes' cancelText='No'  onConfirm={() => dispatch(actionCreator().deletePost(props.post.id))}>
           <a href='#'>Delete</a>
         </Popconfirm>
       </Menu.Item>
@@ -62,17 +68,17 @@ export function Post(props: IPost) {
     <div className='post-container'>
       <div className='post-container_user'>
         <Space align='center'>
-          {props.user.avatar ? (
-            <Avatar src={props.user.avatar} size={50} />
+          {props.post.user.avatar ? (
+            <Avatar src={props.post.user.avatar} size={50} />
           ) : (
             <Avatar icon={<UserOutlined />} size={50} />
           )}
           <Space direction='vertical'>
-            <Typography.Text className='post-container_user-name'>{props.user.login}</Typography.Text>
-            <Typography.Text type="secondary">{props.date}</Typography.Text>
+            <Typography.Text className='post-container_user-name'>{props.post.user.login}</Typography.Text>
+            <Typography.Text type="secondary">{props.post.date}</Typography.Text>
           </Space>
         </Space>
-        { editStatus ? null : <Dropdown.Button overlay={menu}>Settings</Dropdown.Button> }
+        { editStatus || !props.userPost ? null : <Dropdown.Button overlay={menu}>Settings</Dropdown.Button> }
       </div>
       <div className='post-container_content'>
         {
@@ -80,9 +86,9 @@ export function Post(props: IPost) {
             <Input placeholder='Enter posts Title' value={title} onChange={handleEditInputTitle}/>
             <Input.TextArea placeholder='Enter text' value={text} onChange={handleEditInputText} autoSize />
           </> : <>
-            <Typography.Title level={4}>{props.title}</Typography.Title>
+            <Typography.Title level={4}>{props.post.title}</Typography.Title>
             <Typography.Paragraph className='post-container_content-text' ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
-              {props.text}
+              {props.post.text}
             </Typography.Paragraph>
           </>
         }

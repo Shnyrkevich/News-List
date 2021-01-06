@@ -69,6 +69,15 @@ export default function userAuthorizationReducer(state = initialState, action: a
         }
       }
     }
+    case types.EXIT_USER: {
+      return {
+        ...state,
+        activeUser: {
+          isAuth: false,
+          user: null
+        }
+      }
+    }
     default: {
       return state;
     }

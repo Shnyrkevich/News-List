@@ -8,6 +8,7 @@ export const types = {
   CHANGE_POST: 'CHANGE_POST',
   CHANGE_MODAL_POST_VISABILITY: 'CHANGE_MODAL_POST_VISABILITY',
   CHANGE_AUTHORIZATION_MODAL_VISABILITY: 'CHANGE_AUTHORIZATION_MODAL_VISABILITY',
+  CHANGE_USER_MODAL_VISABILITY: 'CHANGE_USER_MODAL_VISABILITY',
   CHANGE_POSTS_QUANTITY: 'CHANGE_POSTS_QUANTITY',
   CHANGE_PAGE: 'CHANGE_PAGE',
   LOG_IN: 'LOG_IN',
@@ -15,6 +16,8 @@ export const types = {
   ADD_NEW_USER: 'ADD_NEW_USER',
   CHANGE_USER_DATA: 'CHANGE_USER_DATA',
   DELETE_USER: 'DELETE_USER',
+  EXIT_USER: 'EXIT_USER',
+
 };
 
 export const actionCreator = () => {
@@ -32,5 +35,7 @@ export const actionCreator = () => {
     deleteUser: (id?: number) => ({ type: types.DELETE_USER, data: id }),
     changeUserData: (newData: IUser) => ({ type: types.CHANGE_USER_DATA, data: newData }),
     logIn: (authData: IUser) => ({ type: types.LOG_IN, data: authData }),
+    userExit: () => ({ type: types.EXIT_USER }),
+    changeUserModalVisability: () => ({ type: types.CHANGE_USER_MODAL_VISABILITY }),
   };
 };
