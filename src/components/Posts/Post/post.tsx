@@ -78,7 +78,7 @@ export function Post(props: IProps) {
             <Typography.Text type="secondary">{props.post.date}</Typography.Text>
           </Space>
         </Space>
-        { editStatus || !props.userPost ? null : <Dropdown.Button overlay={menu}>Settings</Dropdown.Button> }
+        { !props.userPost ? null : <Dropdown.Button overlay={menu}>Settings</Dropdown.Button> }
       </div>
       <div className='post-container_content'>
         {

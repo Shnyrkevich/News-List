@@ -14,6 +14,8 @@ export default function PostsList() {
   const tags = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
   const { actualPage, quantity } = useSelector((state: any) => state.postsQuantityReducer.postsQuantity);
 
+  console.log(authUser);
+
   let currentPosts = tags.length ? dateFix(posts).filter((el: IPost) => tags.reduce((acc: boolean, tag: string) => {
     if (el.tags.includes(tag)) {
       acc = true;
@@ -27,7 +29,8 @@ export default function PostsList() {
 
   return (
     <div className='posts-container'>
-      {currentPosts.length ? currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: IPost) => <Post post={el} userPost={authUser.isAuth ? authUser.id === el.user.id : false} key={el.id} />) : <Empty />}
+      {currentPosts.length ?
+       currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: IPost) => <Post post={el} userPost={authUser.isAuth ? authUser.user.id === el.user.id : false } key={el.id} />) : <Empty />}
     </div>
   );
 }
