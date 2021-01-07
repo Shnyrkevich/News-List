@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './post.css';
 import { Avatar, Typography, Menu, Space, Dropdown, Popconfirm, Input, Button, Tag } from 'antd';
-import { UserOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { UserOutlined, EditOutlined, DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { actionCreator } from '../../../store/actions';
 import TagsPeacker from '../../TagsPeacker/TagsPeacker';
@@ -78,7 +78,7 @@ export function Post(props: IProps) {
             <Typography.Text type="secondary">{props.post.date}</Typography.Text>
           </Space>
         </Space>
-        { !props.userPost ? null : <Dropdown.Button overlay={menu}>Settings</Dropdown.Button> }
+        { !props.userPost ? null : <Dropdown overlay={menu} trigger={['click']} placement="bottomRight"><SettingOutlined className='post-container_user-settings'/></Dropdown> }
       </div>
       <div className='post-container_content'>
         {

@@ -61,4 +61,14 @@
   margin-left: 10px;
 }
 
+.post-container_user-settings {
+  font-size: 20px;
+  height: 20px;
+}
+
+.post-container_user-settings svg {
+  display: block;
+  margin: 0 auto;
+}
+
 

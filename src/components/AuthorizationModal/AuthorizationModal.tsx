@@ -3,16 +3,6 @@ import { Form, Input, Button, Modal, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
-
-const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 16 },
-};
-
-const tailLayout = {
-  wrapperCol: { offset: 6, span: 16 },
-};
-
 interface IForm {
   login: string
   password: string
@@ -53,7 +43,8 @@ export default function AuthorizationModal() {
   }
 
   return (
-    <Modal 
+    <Modal
+      className='authorization-modal'
       title={registrationStatus ? 'Registration form' : 'LogIn form'}
       visible={visability}
       footer={registrationStatus ? [
@@ -64,8 +55,8 @@ export default function AuthorizationModal() {
       onCancel={() => dispatch(actionCreator().changeAuthorizationModalVisability())}
     >
       <Form
-        {...layout}
         ref={form}
+        layout='vertical'
         name="user-uthorization"
         onFinish={registrationStatus ? onRegistrationFinish : onLogInFinish}
       >
@@ -114,14 +105,14 @@ export default function AuthorizationModal() {
           !registrationStatus ? 
           <Form.Item>
             <Button onClick={() => setRegistrationStatus(true)} type="link" block>
-              You don't have account?
+              You don't have an account?
             </Button>
           </Form.Item> :
           null
         }
-        <Form.Item {...tailLayout}>
+        <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            { !registrationStatus ? 'LogIn' : 'SignIn' }
           </Button>
         </Form.Item>
       </Form>

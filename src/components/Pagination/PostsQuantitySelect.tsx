@@ -1,4 +1,5 @@
 import React from 'react';
+import './postQuantitySelect.css';
 import { Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';

@@ -1,4 +1,5 @@
 import React from 'react';
+import './appControls.css';
 import PostsQuantitySelect from '../Pagination/PostsQuantitySelect';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
