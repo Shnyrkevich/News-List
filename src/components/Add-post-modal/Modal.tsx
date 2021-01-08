@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Input } from 'antd';
-import { actionCreator } from '../../store/actions';
+import { Modal, Input, message } from 'antd';
+import { actionCreator, NewPost } from '../../store/actions';
 import TagsPeacker from '../TagsPeacker/TagsPeacker';
+import { IUser } from '../../store/reducers/userAuthorizationReducer';
 
 export default function PostModal() {
-  const visability = useSelector((state: any) => state.modalReducer.modalWindow.postModalVisability);
-  const authUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser.user)
+  const visability: boolean = useSelector((state: any) => state.modalReducer.modalWindow.postModalVisability);
+  const authUser: IUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser.user)
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
@@ -26,8 +27,11 @@ export default function PostModal() {
   }
 
   function handleOk() {
-    if (!text.length && !title.length) return;
-    const newPost = {
+    if (!text.length && !title.length) {
+      message.error('Title and text fields are must be filled!');
+      return;
+    }
+    const newPost: NewPost = {
       user: {
         id: authUser.id,
         login: authUser.login,
@@ -42,11 +46,11 @@ export default function PostModal() {
     dispatch(actionCreator().changeModalVisability());
   }
 
-  function titleChage(e: any) {
+  function titleChage(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
   }
 
-  function textChange(e: any) {
+  function textChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setText(e.target.value);
   }
 

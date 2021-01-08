@@ -4,19 +4,18 @@ import { Empty } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Post } from './Post/post';
 import { actionCreator } from '../../store/actions';
-import { IPost } from '../../store/reducers/postsReducer';
+import { TPost } from '../../store/reducers/postsReducer';
 import { dateFix } from '../../utils/dateFix';
+import { IActiveUser } from '../../store/reducers/userAuthorizationReducer';
 
 export default function PostsList() {
   const dispatch = useDispatch();
-  const authUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser);
-  const posts = useSelector((state: any) => state.postsReducer.postsPage.posts);
-  const tags = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
+  const authUser: IActiveUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser);
+  const posts: TPost[] = useSelector((state: any) => state.postsReducer.postsPage.posts);
+  const tags: string[] = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
   const { actualPage, quantity } = useSelector((state: any) => state.postsQuantityReducer.postsQuantity);
 
-  console.log(authUser);
-
-  let currentPosts = tags.length ? dateFix(posts).filter((el: IPost) => tags.reduce((acc: boolean, tag: string) => {
+  let currentPosts = tags.length ? dateFix(posts).filter((el: TPost) => tags.reduce((acc: boolean, tag: string) => {
     if (el.tags.includes(tag)) {
       acc = true;
     }
@@ -30,7 +29,7 @@ export default function PostsList() {
   return (
     <div className='posts-container'>
       {currentPosts.length ?
-       currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: IPost) => <Post post={el} userPost={authUser.isAuth ? authUser.user.id === el.user.id : false } key={el.id} />) : <Empty />}
+       currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: TPost) => <Post post={el} userPost={authUser.user ? authUser.user.id === el.user.id : false } key={el.id} />) : <Empty />}
     </div>
   );
 }

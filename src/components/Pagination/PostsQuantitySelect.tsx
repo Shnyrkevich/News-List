@@ -8,7 +8,7 @@ const { Option } = Select;
 
 export default function PostsQuantitySelect() {
   const dispatch = useDispatch();
-  const quantity = useSelector((state: any) => state.postsQuantityReducer.postsQuantity.quantity);
+  const quantity: number = useSelector((state: any) => state.postsQuantityReducer.postsQuantity.quantity);
 
   function handleChange(value: string) {
     dispatch(actionCreator().changePostsQuantity(Number(value)));
@@ -19,7 +19,8 @@ export default function PostsQuantitySelect() {
     <div className='post-quantity-select'>
       Posts on page 
       <Select
-        defaultValue={quantity} style={{ width: 120 }}
+        defaultValue={`${quantity}`}
+        style={{ width: 120 }}
         onChange={handleChange}
         size='small'
       >

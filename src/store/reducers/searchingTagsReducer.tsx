@@ -1,20 +1,19 @@
-import { types } from '../actions';
+import { types, SetTagsAction } from '../actions';
 
-const initialState = {
+type InitialState = {
+  searchingTags: string[] | []
+}
+
+const initialState: InitialState = {
   searchingTags: []
 }
 
-interface IAction {
-  type: string
-  data: string[]
-}
-
-export default function searchingTagsReducer(state = initialState, action: IAction) {
+export default function searchingTagsReducer(state = initialState, action: SetTagsAction): InitialState {
   switch(action.type) {
     case types.SET_TAGS_FOR_SEARCH: {
       return {
         ...state,
-        searchingTags: action.data
+        searchingTags: action.tags
       }
     }
     default: {

@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import './post.css';
-import { Avatar, Typography, Menu, Space, Dropdown, Popconfirm, Input, Button, Tag } from 'antd';
+import { Avatar, Typography, Menu, Space, Dropdown, Popconfirm, Input, Button, Tag, message } from 'antd';
 import { UserOutlined, EditOutlined, DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { actionCreator } from '../../../store/actions';
 import TagsPeacker from '../../TagsPeacker/TagsPeacker';
-import { IPost } from '../../../store/reducers/postsReducer';
+import { TPost } from '../../../store/reducers/postsReducer';
 
 const tagsColors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
 
 interface IProps {
-  post: IPost
+  post: TPost
   userPost: boolean
 }
 
 export function Post(props: IProps) {
-  console.log(props)
   const dispatch = useDispatch();
   const [editStatus, setEditStatus] = useState(false);
   const [text, setText] = useState(props.post.text);
@@ -28,11 +27,11 @@ export function Post(props: IProps) {
     }
   }
 
-  function handleEditInputText(e:any) {
+  function handleEditInputText(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setText(e.target.value);
   }
 
-  function handleEditInputTitle(e:any) {
+  function handleEditInputTitle(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
   }
 
@@ -40,9 +39,13 @@ export function Post(props: IProps) {
     setTags(currentTags);
   }
 
-  function handleEditModeConfirm() {
+  function handleEditModeConfirm(): void {
+    if (!text.length || !title.length) {
+      message.error('Title and text fields are must be filled!');
+      return;
+    }
     const editedPost = {
-      ...props,
+      ...props.post,
       text: text,
       title: title,
       tags: tags
@@ -57,7 +60,11 @@ export function Post(props: IProps) {
         Edit
       </Menu.Item>
       <Menu.Item key='2' icon={<DeleteOutlined />}>
-        <Popconfirm title='Are you sure？' okText='Yes' cancelText='No'  onConfirm={() => dispatch(actionCreator().deletePost(props.post.id))}>
+        <Popconfirm
+          title='Are you sure'
+          okText='Yes' cancelText='No'
+          onConfirm={() => dispatch(actionCreator().deletePost(props.post.id))}
+        >
           <a href='#'>Delete</a>
         </Popconfirm>
       </Menu.Item>
@@ -68,24 +75,36 @@ export function Post(props: IProps) {
     <div className='post-container'>
       <div className='post-container_user'>
         <Space align='center'>
-          {props.post.user.avatar ? (
-            <Avatar src={props.post.user.avatar} size={50} />
-          ) : (
+          {
+            props.post.user.avatar ?
+            <Avatar src={props.post.user.avatar} size={50} /> :
             <Avatar icon={<UserOutlined />} size={50} />
-          )}
+          }
           <Space direction='vertical'>
             <Typography.Text className='post-container_user-name'>{props.post.user.login}</Typography.Text>
-            <Typography.Text type="secondary">{props.post.date}</Typography.Text>
+            <Typography.Text type='secondary'>{props.post.date}</Typography.Text>
           </Space>
         </Space>
-        { !props.userPost ? null : <Dropdown overlay={menu} trigger={['click']} placement="bottomRight"><SettingOutlined className='post-container_user-settings'/></Dropdown> }
+        { 
+          !props.userPost ?
+          null :
+          <Dropdown
+            overlay={menu}
+            trigger={['click']}
+            placement='bottomRight'
+          >
+            <SettingOutlined className='post-container_user-settings'/>
+          </Dropdown>
+        }
       </div>
       <div className='post-container_content'>
         {
-          editStatus ? <>
+          editStatus ?
+          <>
             <Input placeholder='Enter posts Title' value={title} onChange={handleEditInputTitle}/>
             <Input.TextArea placeholder='Enter text' value={text} onChange={handleEditInputText} autoSize />
-          </> : <>
+          </> :
+          <>
             <Typography.Title level={4}>{props.post.title}</Typography.Title>
             <Typography.Paragraph className='post-container_content-text' ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
               {props.post.text}
@@ -100,10 +119,16 @@ export function Post(props: IProps) {
           tags.map((el: string, ind: number) => <Tag key={ind} color={tagsColors[Math.ceil(Math.random() * (tagsColors.length - 0))]}>{el}</Tag>)
         }
       </div>
-      { editStatus ? 
+      { 
+        editStatus ? 
         <div className='post-container_controls'>
           <Button onClick={() => handleEditModeConfirm()}>Ok</Button>
-          <Popconfirm title='Are you sure？' okText='Yes' cancelText='No' onConfirm={() => setEditStatus(false)}>
+          <Popconfirm 
+            title='Are you sure?' 
+            okText='Yes'
+            cancelText='No'
+            onConfirm={() => setEditStatus(false)}
+          >
             <Button>Cancel</Button>
           </Popconfirm>
         </div> : null

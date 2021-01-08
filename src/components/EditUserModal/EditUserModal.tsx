@@ -20,7 +20,7 @@ interface IForm {
 
 export default function EditUserModal() {
   const dispatch = useDispatch();
-  const visability = useSelector((state: any) => state.modalReducer.modalWindow.editUserModalVisability);
+  const visability: boolean = useSelector((state: any) => state.modalReducer.modalWindow.editUserModalVisability);
   const authUser: IUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser.user);
   const form = useRef<any>(null);
 
@@ -44,7 +44,7 @@ export default function EditUserModal() {
       <Form
         {...layout}
         ref={form}
-        name="user-uthorization"
+        name='user-uthorization'
         onFinish={onFinish}
         initialValues={authUser ? {
           login: authUser.login,
@@ -55,22 +55,22 @@ export default function EditUserModal() {
         }}
       >
         <Form.Item
-          label="Login"
-          name="login"
+          label='Login'
+          name='login'
           rules={[{ required: true, message: 'Please input your login!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Password"
-          name="password"
+          label='Password'
+          name='password'
           rules={[{ required: true, message: 'Please input your password!' }]}
           hasFeedback
         >
           <Input.Password />
         </Form.Item>
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button type='primary' htmlType='submit'>
             Save
           </Button>
         </Form.Item>

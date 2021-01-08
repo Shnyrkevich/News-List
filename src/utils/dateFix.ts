@@ -1,9 +1,9 @@
-import { IPost } from '../store/reducers/postsReducer';
+import { TPost } from '../store/reducers/postsReducer';
 
-export function dateFix(data: IPost[]) {
+export function dateFix(data: TPost[]) {
   const currentDate = new Date().toString().split(' ').slice(1, 5);
 
-  return data.map((el: IPost) => {
+  return data.map((el: TPost) => {
     let date = el.date.split(' ').slice(1, 5);
     let outputDate = '';
     if (date[0] === currentDate[0] &&

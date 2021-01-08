@@ -3,7 +3,7 @@ import './tags.css';
 import { Tag, Input, Tooltip } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
-interface IProps {
+type IProps = {
   searchingTags: string[]
   setTags: (currentTags: string[]) => void 
 }
@@ -14,8 +14,7 @@ export default function TagsPeacker(props: IProps) {
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState('');
 
-  const inputRefStart = React.useRef<any>(null);
-  const inputRef = React.useRef<any>(null);
+  const inputRefEdit = React.useRef<any>(null);
 
   function handleClose(removedTag: string) {
     props.setTags(props.searchingTags.filter((tag: string) => (tag) !== removedTag));
@@ -25,7 +24,7 @@ export default function TagsPeacker(props: IProps) {
     setInputVisible(true);
   }
 
-  function handleInputChange(e: any) {
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
   }
 
@@ -37,7 +36,7 @@ export default function TagsPeacker(props: IProps) {
     setInputValue('');
   }
 
-  function handleEditInputChange(e: any) {
+  function handleEditInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setEditInputValue(e.target.value);
   }
 
@@ -55,7 +54,7 @@ export default function TagsPeacker(props: IProps) {
         if (editInputIndex === index) {
           return (
             <Input
-              ref={inputRefStart}
+              ref={inputRefEdit}
               key={tag}
               size='small'
               className='tag-input'
@@ -80,6 +79,7 @@ export default function TagsPeacker(props: IProps) {
               onDoubleClick={e => {
                   setEditInputIndex(index);
                   setEditInputValue(tag);
+                  inputRefEdit.current!.focus();
                   e.preventDefault();
               }}
             >
@@ -97,7 +97,6 @@ export default function TagsPeacker(props: IProps) {
       })}
       {inputVisible && (
         <Input
-          ref={inputRef}
           type='text'
           size='small'
           className='tag-input'

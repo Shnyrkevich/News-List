@@ -5,7 +5,7 @@ import TagsPeacker from './TagsPeacker';
 
 export default function SearchTagsPeacker() {
   const dispatch = useDispatch();
-  const tags = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
+  const tags: string[] = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
 
   function setTags(currentTags: string[]) {
     dispatch(actionCreator().setTags(currentTags));

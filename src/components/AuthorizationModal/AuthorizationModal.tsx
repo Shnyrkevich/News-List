@@ -3,7 +3,8 @@ import { Form, Input, Button, Modal, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
-interface IForm {
+
+type IForm = {
   login: string
   password: string
   confirm?: string
@@ -11,8 +12,8 @@ interface IForm {
 
 export default function AuthorizationModal() {
   const dispatch = useDispatch();
-  const users = useSelector((state: any) => state.userAuthorizationReducer.usersData);
-  const visability = useSelector((state: any) => state.modalReducer.modalWindow.authorizationModalVisability);
+  const users: IUser[] = useSelector((state: any) => state.userAuthorizationReducer.usersData);
+  const visability: boolean = useSelector((state: any) => state.modalReducer.modalWindow.authorizationModalVisability);
   const [registrationStatus, setRegistrationStatus] = useState(false);
   const form = useRef<any>(null);
 
@@ -48,7 +49,7 @@ export default function AuthorizationModal() {
       title={registrationStatus ? 'Registration form' : 'LogIn form'}
       visible={visability}
       footer={registrationStatus ? [
-        <Button key="back" onClick={() => setRegistrationStatus(false)}>
+        <Button key='back' onClick={() => setRegistrationStatus(false)}>
           Return
         </Button>
       ] : null}
@@ -57,19 +58,19 @@ export default function AuthorizationModal() {
       <Form
         ref={form}
         layout='vertical'
-        name="user-uthorization"
+        name='user-uthorization'
         onFinish={registrationStatus ? onRegistrationFinish : onLogInFinish}
       >
         <Form.Item
-          label="Login"
-          name="login"
+          label='Login'
+          name='login'
           rules={[{ required: true, message: 'Please input your login!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Password"
-          name="password"
+          label='Password'
+          name='password'
           rules={[{ required: true, message: 'Please input your password!' }]}
           hasFeedback
         >
@@ -78,8 +79,8 @@ export default function AuthorizationModal() {
         {
           registrationStatus ? 
           <Form.Item
-            name="confirm"
-            label="Confirm Password"
+            name='confirm'
+            label='Confirm Password'
             dependencies={['password']}
             hasFeedback
             rules={[
@@ -104,15 +105,15 @@ export default function AuthorizationModal() {
         {
           !registrationStatus ? 
           <Form.Item>
-            <Button onClick={() => setRegistrationStatus(true)} type="link" block>
+            <Button onClick={() => setRegistrationStatus(true)} type='link' block>
               You don't have an account?
             </Button>
           </Form.Item> :
           null
         }
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            { !registrationStatus ? 'LogIn' : 'SignIn' }
+          <Button type='primary' htmlType='submit'>
+            { !registrationStatus ? 'Log In' : 'Sign In' }
           </Button>
         </Form.Item>
       </Form>

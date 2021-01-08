@@ -4,9 +4,10 @@ import './header.css';
 import { Button, Typography, Space, Avatar, Dropdown, Menu, Popconfirm } from 'antd';
 import { UserOutlined, EditOutlined, DeleteOutlined, ExportOutlined } from '@ant-design/icons';
 import { actionCreator } from '../../store/actions';
+import { IActiveUser } from '../../store/reducers/userAuthorizationReducer';
 
 export default function Header() {
-  const authUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser);
+  const authUser: IActiveUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser);
   const dispatch = useDispatch();
 
   function handleDropdownClick(e: any) {
@@ -22,15 +23,22 @@ export default function Header() {
 
   const menu = (
     <Menu onClick={handleDropdownClick}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         Edit <EditOutlined />
       </Menu.Item>
-      <Menu.Item key="2">
-        <Popconfirm title='Are you sure？' okText='Yes' cancelText='No'  onConfirm={() => dispatch(actionCreator().deleteUser(authUser.user.id))}>
+      <Menu.Item key='2'>
+        <Popconfirm title='Are you sure'
+          okText='Yes'
+          cancelText='No'
+          onConfirm={() => {
+            if (authUser.user) {
+              dispatch(actionCreator().deleteUser(authUser.user.id))
+            }
+          }}>
           Delete <DeleteOutlined />
         </Popconfirm>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         Exit <ExportOutlined />
       </Menu.Item>
     </Menu>
@@ -43,7 +51,7 @@ export default function Header() {
           News list
         </Typography.Title>
         {
-          authUser.isAuth ?
+          authUser.user ?
           <Dropdown overlay={menu} trigger={['click']}>
             <Space align='center'>
               {authUser.user.avatar ? (

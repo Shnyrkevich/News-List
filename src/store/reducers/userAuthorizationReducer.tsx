@@ -1,6 +1,32 @@
-import { types } from '../actions';
+import {
+  types,
+  AddNewUserAction,
+  DeleteUserAction,
+  ChangeUserDataAction,
+  LogInAction,
+  UserExitAction,
+} from '../actions';
 
-const initialState = {
+export type IUser = {
+  id: number
+  login: string
+  password: string
+  avatar?: string
+}
+
+export type IActiveUser = {
+  isAuth: boolean
+  user: IUser | null
+}
+
+type InitialState = {
+  usersData: IUser[]
+  activeUser: IActiveUser
+}
+
+type ActionTypes = AddNewUserAction | DeleteUserAction | ChangeUserDataAction | LogInAction | UserExitAction;
+
+const initialState: InitialState = {
   usersData: [
     {
       id: 1,
@@ -15,19 +41,12 @@ const initialState = {
   }
 }
 
-export interface IUser {
-  id?: number
-  login: string
-  password: string
-  avatar?: string
-}
-
-export default function userAuthorizationReducer(state = initialState, action: any) {
+export default function userAuthorizationReducer(state = initialState, action: ActionTypes): InitialState {
   switch(action.type) {
     case types.ADD_NEW_USER: {
       const newUser = {
         id: state.usersData.length + 1,
-        ...action.data
+        ...action.newUser
       };
       return {
         ...state,
@@ -41,7 +60,7 @@ export default function userAuthorizationReducer(state = initialState, action: a
     case types.DELETE_USER: {
       return {
         ...state,
-        usersData: state.usersData.filter((el: IUser) => el.id !== action.data.id),
+        usersData: state.usersData.filter((el: IUser) => el.id !== action.id),
         activeUser: {
           isAuth: false,
           user: null,
@@ -52,20 +71,21 @@ export default function userAuthorizationReducer(state = initialState, action: a
       return {
         ...state,
         usersData: state.usersData.map((el: IUser) => {
-          return el.id === action.data.id ? action.data : el;
+          return el.id === action.user.id ? action.user : el;
         }),
         activeUser: {
           isAuth: true,
-          user: action.data,
+          user: action.user,
         }
       }
     }
     case types.LOG_IN: {
+      console.log(action.user)
       return {
         ...state,
         activeUser: {
           isAuth: true,
-          user: action.data
+          user: action.user
         }
       }
     }

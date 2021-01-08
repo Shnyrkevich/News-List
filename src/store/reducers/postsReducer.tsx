@@ -1,6 +1,38 @@
-import { types } from '../actions';
+import {
+    types,
+    AddNewPostAction,
+    DeletePostAction,
+    ChangePostAction,
+    SetActualPostsAction
+} from '../actions';
 
-const initialState = {
+export type TUser = {
+  id: number
+  login: string
+  avatar?: string | null
+}
+
+export type TPost = {
+  id: number
+  user: TUser
+  title: string
+  text: string 
+  tags: string[]
+  date: string
+}
+
+type PostsPage = {
+  actualPosts: TPost[]
+  posts: TPost[]
+}
+
+type InitialState = {
+  postsPage: PostsPage
+}
+
+type ActionTypes = AddNewPostAction | DeletePostAction | ChangePostAction | SetActualPostsAction;
+
+const initialState: InitialState = {
   postsPage: {
     actualPosts: [],
     posts: [
@@ -80,22 +112,7 @@ const initialState = {
   }
 };
 
-interface User {
-  id?: number
-  login: string;
-  avatar: string;
-}
-
-export interface IPost {
-  id?: number;
-  user: User;
-  title: string;
-  text: string;
-  tags: string[],
-  date: string
-}
-
-const postsReducer = (state = initialState, action: any) => {
+const postsReducer = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {
     case types.ADD_NEW_POST: {
       return {
@@ -106,7 +123,7 @@ const postsReducer = (state = initialState, action: any) => {
             ...state.postsPage.posts,
             {
               id: state.postsPage.posts.length + 1,
-              ...action.data
+              ...action.newPost
             }
           ]
         }
@@ -118,7 +135,7 @@ const postsReducer = (state = initialState, action: any) => {
         postsPage: {
           ...state.postsPage,
           posts: state.postsPage.posts.map((el) => {
-            return el.id === action.data.id ? action.data : el;
+            return el.id === action.post.id ? action.post : el;
           })
         }
       };
@@ -128,7 +145,7 @@ const postsReducer = (state = initialState, action: any) => {
         ...state,
         postsPage: {
           ...state.postsPage,
-          posts: state.postsPage.posts.filter((el) => el.id !== action.data)
+          posts: state.postsPage.posts.filter((el) => el.id !== action.id)
         }
       };
     }
@@ -137,7 +154,7 @@ const postsReducer = (state = initialState, action: any) => {
         ...state,
         postsPage: {
           ...state.postsPage,
-          actualPosts: action.data,
+          actualPosts: action.posts,
         }
       }
     }
