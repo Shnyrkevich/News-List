@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { actionCreator } from '../../../store/actions';
 import TagsPeacker from '../../TagsPeacker/TagsPeacker';
 import { TPost } from '../../../store/reducers/postsReducer';
+import { dateFix } from '../../../utils/dateFix';
 
 const tagsColors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
 
@@ -82,7 +83,7 @@ export function Post(props: IProps) {
           }
           <Space direction='vertical'>
             <Typography.Text className='post-container_user-name'>{props.post.user.login}</Typography.Text>
-            <Typography.Text type='secondary'>{props.post.date}</Typography.Text>
+            <Typography.Text type='secondary'>{dateFix(props.post.date)}</Typography.Text>
           </Space>
         </Space>
         { 

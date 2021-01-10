@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Post } from './Post/post';
 import { actionCreator } from '../../store/actions';
 import { TPost } from '../../store/reducers/postsReducer';
-import { dateFix } from '../../utils/dateFix';
+import { sortByDate } from '../../utils/sortByDate';
 import { IActiveUser } from '../../store/reducers/userAuthorizationReducer';
 
 export default function PostsList() {
@@ -14,13 +14,18 @@ export default function PostsList() {
   const posts: TPost[] = useSelector((state: any) => state.postsReducer.postsPage.posts);
   const tags: string[] = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
   const { actualPage, quantity } = useSelector((state: any) => state.postsQuantityReducer.postsQuantity);
+  const sortStatus = useSelector((state: any) => state.sortByDateReducer.sortByDateStatus);
 
-  let currentPosts = tags.length ? dateFix(posts).filter((el: TPost) => tags.reduce((acc: boolean, tag: string) => {
-    if (el.tags.includes(tag)) {
-      acc = true;
-    }
-    return acc;
-  }, false)) : dateFix(posts);
+  let currentPosts = sortByDate(sortStatus, posts); 
+  
+  if ( tags.length ) {
+    currentPosts = currentPosts.filter((el: TPost) => tags.reduce((acc: boolean, tag: string) => {
+      if (el.tags.includes(tag)) {
+        acc = true;
+      }
+      return acc;
+    }, false))
+  }
 
   useEffect(() => {
     dispatch(actionCreator().setActualPosts(currentPosts));

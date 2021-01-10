@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import SearchTagsPeacker from '../TagsPeacker/SearchTagsPeacker';
 import { IActiveUser } from '../../store/reducers/userAuthorizationReducer';
+import SortByDateButton from '../SortByDateButton/SortByDateButton';
 
 export default function AppControls() {
   const dispatch = useDispatch();
@@ -27,5 +28,6 @@ export default function AppControls() {
       }
     </div>
     <SearchTagsPeacker />
+    <SortByDateButton />
   </div>
 }

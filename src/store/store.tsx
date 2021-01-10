@@ -4,13 +4,15 @@ import modalReducer from './reducers/modalReducer';
 import postsQuantityReducer from './reducers/postsQuantityReducer';
 import searchingTagsReducer from './reducers/searchingTagsReducer';
 import userAuthorizationReducer from './reducers/userAuthorizationReducer';
+import sortByDateReducer from './reducers/sortByDateReducer';
 
 let reducers = combineReducers({
   postsReducer,
   modalReducer,
   postsQuantityReducer,
   searchingTagsReducer,
-  userAuthorizationReducer
+  userAuthorizationReducer,
+  sortByDateReducer
 });
 
 let store = createStore(reducers);

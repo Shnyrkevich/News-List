@@ -80,7 +80,6 @@ export default function userAuthorizationReducer(state = initialState, action: A
       }
     }
     case types.LOG_IN: {
-      console.log(action.user)
       return {
         ...state,
         activeUser: {

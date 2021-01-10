@@ -27,7 +27,7 @@ export default function PostModal() {
   }
 
   function handleOk() {
-    if (!text.length && !title.length) {
+    if (!text.length || !title.length) {
       message.error('Title and text fields are must be filled!');
       return;
     }

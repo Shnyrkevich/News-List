@@ -1,0 +1,23 @@
+.sort-date-button {
+  margin-top: 5px;
+  width: 130px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sort-date-buton_icons-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sort-date-button:focus,
+.sort-date-button:hover {
+  border-color: #40a9ff;
+  color: inherit;
+}
+
+.active-icon {
+  color:  #40a9ff;
+}
