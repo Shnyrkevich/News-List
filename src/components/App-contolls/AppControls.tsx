@@ -8,6 +8,7 @@ import { actionCreator } from '../../store/actions';
 import SearchTagsPeacker from '../TagsPeacker/SearchTagsPeacker';
 import { IActiveUser } from '../../store/reducers/userAuthorizationReducer';
 import SortByDateButton from '../SortByDateButton/SortByDateButton';
+import SortByAuthorNameSelect from '../SortByAuthorNameSelect/SortByAuthorNameSelect';
 
 export default function AppControls() {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ export default function AppControls() {
       }
     </div>
     <SearchTagsPeacker />
-    <SortByDateButton />
+    <div className='app-controlls_container-sort-tools'>
+      <SortByDateButton />
+      <SortByAuthorNameSelect />
+    </div>
   </div>
 }

@@ -7,6 +7,7 @@ import { actionCreator } from '../../store/actions';
 import { TPost } from '../../store/reducers/postsReducer';
 import { sortByDate } from '../../utils/sortByDate';
 import { IActiveUser } from '../../store/reducers/userAuthorizationReducer';
+import { sortByAuthorName } from '../../utils/sortByAuthorName';
 
 export default function PostsList() {
   const dispatch = useDispatch();
@@ -14,9 +15,10 @@ export default function PostsList() {
   const posts: TPost[] = useSelector((state: any) => state.postsReducer.postsPage.posts);
   const tags: string[] = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
   const { actualPage, quantity } = useSelector((state: any) => state.postsQuantityReducer.postsQuantity);
-  const sortStatus = useSelector((state: any) => state.sortByDateReducer.sortByDateStatus);
+  const sortStatus = useSelector((state: any) => state.sortReducer.sortByDateStatus);
+  const sortAuthorName = useSelector((state: any) => state.sortReducer.sortByAuthor);
 
-  let currentPosts = sortByDate(sortStatus, posts); 
+  let currentPosts = sortByAuthorName(sortAuthorName, sortByDate(sortStatus, posts));
   
   if ( tags.length ) {
     currentPosts = currentPosts.filter((el: TPost) => tags.reduce((acc: boolean, tag: string) => {
@@ -29,7 +31,7 @@ export default function PostsList() {
 
   useEffect(() => {
     dispatch(actionCreator().setActualPosts(currentPosts));
-  }, [tags, posts])
+  }, [tags, posts, sortAuthorName])
 
   return (
     <div className='posts-container'>
