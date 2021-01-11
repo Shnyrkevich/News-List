@@ -18,7 +18,8 @@ export const types = {
   DELETE_USER: 'DELETE_USER' as const,
   EXIT_USER: 'EXIT_USER' as const,
   CHANGE_SORT_BY_DATE_STATUS: 'CHANGE_SORT_BY_DATE_STATUS' as const,
-  SET_AUTHOR_FOR_SORT: 'SET_AUTHOR_FOR_SORT' as const
+  SET_AUTHOR_FOR_SORT: 'SET_AUTHOR_FOR_SORT' as const,
+  CHANGE_USER_IN_POSTS: 'CHANGE_USER_IN_POSTS' as const
 };
 
 export type NewPost = {
@@ -111,9 +112,14 @@ export type ChangeSortByDateStatusAction = {
   status: number
 }
 
-export type SetAuthorForSort = {
+export type SetAuthorForSortAction = {
   type: typeof types.SET_AUTHOR_FOR_SORT
   authorName: string | null
+}
+
+export type ChangeUserInPostsAction = {
+  type: typeof types.CHANGE_USER_IN_POSTS
+  user: TUser
 }
 
 export const actionCreator = () => {
@@ -134,6 +140,7 @@ export const actionCreator = () => {
     userExit: (): UserExitAction => ({ type: types.EXIT_USER }),
     changeUserModalVisability: (): ChangeUserModalVisabilityAction => ({ type: types.CHANGE_USER_MODAL_VISABILITY }),
     changeSortByDateStatus: (status: number): ChangeSortByDateStatusAction => ({ type: types.CHANGE_SORT_BY_DATE_STATUS, status }),
-    setAuhorForSort: (authorName: string | null): SetAuthorForSort => ({ type: types.SET_AUTHOR_FOR_SORT, authorName })
+    setAuhorForSort: (authorName: string | null): SetAuthorForSortAction => ({ type: types.SET_AUTHOR_FOR_SORT, authorName }),
+    changeUserInPosts: (user: TUser): ChangeUserInPostsAction => ({ type: types.CHANGE_USER_IN_POSTS, user }),
   };
 };

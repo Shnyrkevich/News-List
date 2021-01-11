@@ -41,6 +41,11 @@ export default function EditUserModal() {
       avatar: userAvatar
     };
     dispatch(actionCreator().changeUserData(newData));
+    dispatch(actionCreator().changeUserInPosts({
+      login: values.login,
+      avatar: userAvatar,
+      id: authUser.id,
+    }));
     message.success('User data saved');
     onCancel();
   }

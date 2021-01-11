@@ -1,7 +1,7 @@
 import { 
   types,
   ChangeSortByDateStatusAction,
-  SetAuthorForSort
+  SetAuthorForSortAction
 } from '../actions';
 
 type InitialState = {
@@ -9,7 +9,7 @@ type InitialState = {
   sortByAuthor: string | null
 }
 
-type AcionType = ChangeSortByDateStatusAction | SetAuthorForSort;
+type AcionType = ChangeSortByDateStatusAction | SetAuthorForSortAction;
 
 const initialState: InitialState = {
   sortByDateStatus: 0,

@@ -3,7 +3,8 @@ import {
     AddNewPostAction,
     DeletePostAction,
     ChangePostAction,
-    SetActualPostsAction
+    SetActualPostsAction,
+    ChangeUserInPostsAction
 } from '../actions';
 
 export type TUser = {
@@ -30,7 +31,7 @@ type InitialState = {
   postsPage: PostsPage
 }
 
-type ActionTypes = AddNewPostAction | DeletePostAction | ChangePostAction | SetActualPostsAction;
+type ActionTypes = AddNewPostAction | DeletePostAction | ChangePostAction | SetActualPostsAction | ChangeUserInPostsAction;
 
 const initialState: InitialState = {
   postsPage: {
@@ -155,6 +156,23 @@ const postsReducer = (state = initialState, action: ActionTypes): InitialState =
         postsPage: {
           ...state.postsPage,
           actualPosts: action.posts,
+        }
+      }
+    }
+    case types.CHANGE_USER_IN_POSTS: {
+      return {
+        ...state,
+        postsPage: {
+          ...state.postsPage,
+          posts: state.postsPage.posts.map((el: TPost) => {
+            if (action.user.id === el.user.id) {
+              return {
+                ...el,
+                user: action.user
+              }
+            }
+            return el;
+          }),
         }
       }
     }

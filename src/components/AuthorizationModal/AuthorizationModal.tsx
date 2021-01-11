@@ -28,7 +28,7 @@ export default function AuthorizationModal() {
   const onLogInFinish = (values: IForm) => {
     const userStatus = users.find((el: IUser) => el.login === values.login && el.password === values.password);
     if ( userStatus ) {
-      dispatch(actionCreator().logIn(userStatus))
+      dispatch(actionCreator().logIn(userStatus));
       dispatch(actionCreator().changeAuthorizationModalVisability());
     } else {
       message.error('Incorret login or password');
