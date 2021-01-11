@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Form, Input, Button, Modal, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
@@ -15,16 +15,21 @@ type IForm = {
 export default function AuthorizationModal() {
   const dispatch = useDispatch();
   const users: IUser[] = useSelector(getUsers);
-  const visability: boolean = useSelector(getAuthorizationModalVisability);
-  const [registrationStatus, setRegistrationStatus] = useState(false);
+  const visability = useSelector(getAuthorizationModalVisability);
+  const [registrationStatus, setRegistrationStatus] = useState<boolean>(false);
   const form = useRef<any>(null);
+
+  useEffect(() => {
+    if (form.current) {
+      resetFrom();
+    }
+  }, [visability, registrationStatus]);
 
   const onLogInFinish = (values: IForm) => {
     const userStatus = users.find((el: IUser) => el.login === values.login && el.password === values.password);
     if ( userStatus ) {
       dispatch(actionCreator().logIn(userStatus))
       dispatch(actionCreator().changeAuthorizationModalVisability());
-      resetFrom();
     } else {
       message.error('Incorret login or password');
     }
@@ -38,7 +43,6 @@ export default function AuthorizationModal() {
     }));
     dispatch(actionCreator().changeAuthorizationModalVisability());
     setRegistrationStatus(false);
-    resetFrom();
   }
 
   const resetFrom = () => {

@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
-import SearchTagsPeacker from '../TagsPeacker/SearchTagsPeacker';
+import SearchTagsPeacker from '../TagsPicker/SearchTagsPicker';
 import SortByDateButton from '../SortByDateButton/SortByDateButton';
 import SortByAuthorNameSelect from '../SortByAuthorNameSelect/SortByAuthorNameSelect';
 import { getIsAuth } from '../../store/selectors/user-selectors';
@@ -23,7 +23,7 @@ export default function AppControls() {
           icon={<PlusOutlined />}
           onClick={() => dispatch(actionCreator().changeModalVisability())}
         >
-            Add new post
+          Add new post
         </Button> :
         null
       }

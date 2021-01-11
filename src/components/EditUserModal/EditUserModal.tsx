@@ -27,7 +27,6 @@ export default function EditUserModal() {
   const visability: boolean = useSelector(getEditUserModalVisability);
   const authUser: IUser = useSelector(getAuthUser);
   const [ userAvatar, setUserAvatar ] = useState<null | string>(null);
-  const form = useRef<any>(null);
 
   useEffect(() => {
     if (authUser) {
@@ -62,7 +61,6 @@ export default function EditUserModal() {
       <AvatarUpload imageUrl={userAvatar} setImageUrl={(url: string) => setUserAvatar(url)} />
       <Form
         {...layout}
-        ref={form}
         name='user-uthorization'
         onFinish={onFinish}
         initialValues={authUser}

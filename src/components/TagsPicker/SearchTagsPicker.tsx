@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import { getTags } from '../../store/selectors/tags-selector';
-import TagsPeacker from './TagsPeacker';
+import TagsPeacker from './TagsPicker';
 
 export default function SearchTagsPeacker() {
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import { Avatar, Typography, Menu, Space, Dropdown, Popconfirm, Input, Button, T
 import { UserOutlined, EditOutlined, DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { actionCreator } from '../../../store/actions';
-import TagsPeacker from '../../TagsPeacker/TagsPeacker';
+import TagsPeacker from '../../TagsPicker/TagsPicker';
 import { TPost } from '../../../store/reducers/postsReducer';
 import { dateFix } from '../../../utils/dateFix';
 

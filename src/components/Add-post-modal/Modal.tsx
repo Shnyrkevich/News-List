@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Input, message } from 'antd';
 import { actionCreator, NewPost } from '../../store/actions';
-import TagsPeacker from '../TagsPeacker/TagsPeacker';
+import TagsPeacker from '../TagsPicker/TagsPicker';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
 import { getAuthUser } from '../../store/selectors/user-selectors';
 import { getAddNewPostModalVisability } from '../../store/selectors/modal-windows-selectors';
