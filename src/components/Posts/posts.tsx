@@ -15,7 +15,7 @@ import { getSortAuthorName, getSortByDateStatus } from '../../store/selectors/so
 
 export default function PostsList() {
   const dispatch = useDispatch();
-  const authUser: IUser = useSelector(getAuthUser);
+  const authUser: IUser | null = useSelector(getAuthUser);
   const posts: TPost[] = useSelector(getPosts);
   const tags: string[] = useSelector(getTags);
   const { actualPage, quantity } = useSelector(getPostsQuantity);

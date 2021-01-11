@@ -9,7 +9,7 @@ import { getAddNewPostModalVisability } from '../../store/selectors/modal-window
 
 export default function PostModal() {
   const visability: boolean = useSelector(getAddNewPostModalVisability);
-  const authUser: IUser = useSelector(getAuthUser);
+  const authUser: IUser | null = useSelector(getAuthUser);
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
@@ -29,6 +29,7 @@ export default function PostModal() {
   }
 
   function handleOk() {
+    if (!authUser) return;
     if (!text.length || !title.length) {
       message.error('Title and text fields are must be filled!');
       return;

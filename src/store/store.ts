@@ -15,6 +15,8 @@ let reducers = combineReducers({
   sortReducer
 });
 
+export type RootState = ReturnType<typeof reducers>
+
 let store = createStore(reducers);
 
 export default store;

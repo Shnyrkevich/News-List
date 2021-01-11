@@ -8,7 +8,7 @@ import { IUser } from '../../store/reducers/userAuthorizationReducer';
 import { getAuthUser } from '../../store/selectors/user-selectors';
 
 export default function Header() {
-  const authUser: IUser = useSelector(getAuthUser);
+  const authUser: IUser | null = useSelector(getAuthUser);
   const dispatch = useDispatch();
 
   function handleDropdownClick(e: any) {
@@ -23,6 +23,7 @@ export default function Header() {
   }
 
   function handleOnConfirm(): void {
+    if (!authUser) return;
     dispatch(actionCreator().deleteUser(authUser.id));
   }
 

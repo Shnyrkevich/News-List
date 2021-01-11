@@ -1,12 +1,14 @@
-export function getAddNewPostModalVisability(state: any): boolean {
+import { RootState } from '../store';
+
+export function getAddNewPostModalVisability(state: RootState): boolean {
   return state.modalReducer.modalWindow.postModalVisability;
 }
 
-export function getAuthorizationModalVisability(state: any): boolean {
+export function getAuthorizationModalVisability(state: RootState): boolean {
   return state.modalReducer.modalWindow.authorizationModalVisability;
 }
 
-export function getEditUserModalVisability(state: any): boolean {
+export function getEditUserModalVisability(state: RootState): boolean {
   return state.modalReducer.modalWindow.editUserModalVisability;
 }
 

@@ -25,7 +25,7 @@ interface IForm {
 export default function EditUserModal() {
   const dispatch = useDispatch();
   const visability: boolean = useSelector(getEditUserModalVisability);
-  const authUser: IUser = useSelector(getAuthUser);
+  const authUser: IUser | null = useSelector(getAuthUser);
   const [ userAvatar, setUserAvatar ] = useState<null | string>(null);
 
   useEffect(() => {
@@ -35,6 +35,7 @@ export default function EditUserModal() {
   }, [authUser])
 
   const onFinish = (values: IForm) => {
+    if (!authUser) return;
     const newData = {
       id: authUser.id,
       ...values,
