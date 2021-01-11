@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
 import AvatarUpload from '../AvatarUpload/AvatarUpload';
+import { getAuthUser } from '../../store/selectors/user-selectors';
+import { getEditUserModalVisability } from '../../store/selectors/modal-windows-selectors';
 
 const layout = {
   labelCol: { span: 6 },
@@ -22,8 +24,8 @@ interface IForm {
 
 export default function EditUserModal() {
   const dispatch = useDispatch();
-  const visability: boolean = useSelector((state: any) => state.modalReducer.modalWindow.editUserModalVisability);
-  const authUser: IUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser.user);
+  const visability: boolean = useSelector(getEditUserModalVisability);
+  const authUser: IUser = useSelector(getAuthUser);
   const [ userAvatar, setUserAvatar ] = useState<null | string>(null);
   const form = useRef<any>(null);
 

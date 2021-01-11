@@ -4,9 +4,9 @@ import {
   ChangePostsQuantityAction,
 } from '../actions';
 
-type TPostsQuantity = {
-  quantity: number | null
-  actualPage: number | null
+export type TPostsQuantity = {
+  quantity: number
+  actualPage: number
 }
 
 type InitialState = {

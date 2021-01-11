@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
+import { getTags } from '../../store/selectors/tags-selector';
 import TagsPeacker from './TagsPeacker';
 
 export default function SearchTagsPeacker() {
   const dispatch = useDispatch();
-  const tags: string[] = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
+  const tags: string[] | [] = useSelector(getTags);
 
   function setTags(currentTags: string[]) {
     dispatch(actionCreator().setTags(currentTags));

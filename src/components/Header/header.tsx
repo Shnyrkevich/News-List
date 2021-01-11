@@ -4,10 +4,11 @@ import './header.css';
 import { Button, Typography, Space, Avatar, Dropdown, Menu, Popconfirm } from 'antd';
 import { UserOutlined, EditOutlined, DeleteOutlined, ExportOutlined } from '@ant-design/icons';
 import { actionCreator } from '../../store/actions';
-import { IActiveUser } from '../../store/reducers/userAuthorizationReducer';
+import { IUser } from '../../store/reducers/userAuthorizationReducer';
+import { getAuthUser } from '../../store/selectors/user-selectors';
 
 export default function Header() {
-  const authUser: IActiveUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser);
+  const authUser: IUser = useSelector(getAuthUser);
   const dispatch = useDispatch();
 
   function handleDropdownClick(e: any) {
@@ -21,6 +22,10 @@ export default function Header() {
     }
   }
 
+  function handleOnConfirm(): void {
+    dispatch(actionCreator().deleteUser(authUser.id));
+  }
+
   const menu = (
     <Menu onClick={handleDropdownClick}>
       <Menu.Item key='1'>
@@ -30,11 +35,8 @@ export default function Header() {
         <Popconfirm title='Are you sure'
           okText='Yes'
           cancelText='No'
-          onConfirm={() => {
-            if (authUser.user) {
-              dispatch(actionCreator().deleteUser(authUser.user.id))
-            }
-          }}>
+          onConfirm={handleOnConfirm}
+        >
           Delete <DeleteOutlined />
         </Popconfirm>
       </Menu.Item>
@@ -51,16 +53,16 @@ export default function Header() {
           News list
         </Typography.Title>
         {
-          authUser.user ?
+          authUser ?
           <Dropdown overlay={menu} trigger={['click']}>
             <Space align='center'>
-              {authUser.user.avatar ? (
-                <Avatar src={authUser.user.avatar} size={28} />
+              {authUser.avatar ? (
+                <Avatar src={authUser.avatar} size={28} />
               ) : (
                 <Avatar icon={<UserOutlined />} size={28} />
               )}
               <Space direction='vertical'>
-                <Typography.Text className='post-container_user-name' style={{color: 'white'}}>{authUser.user.login}</Typography.Text>
+                <Typography.Text className='post-container_user-name' style={{color: 'white'}}>{authUser.login}</Typography.Text>
               </Space>
             </Space>
           </Dropdown> :

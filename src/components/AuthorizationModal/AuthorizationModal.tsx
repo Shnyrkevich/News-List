@@ -3,6 +3,8 @@ import { Form, Input, Button, Modal, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
+import { getAuthorizationModalVisability } from '../../store/selectors/modal-windows-selectors';
+import { getUsers } from '../../store/selectors/user-selectors';
 
 type IForm = {
   login: string
@@ -12,8 +14,8 @@ type IForm = {
 
 export default function AuthorizationModal() {
   const dispatch = useDispatch();
-  const users: IUser[] = useSelector((state: any) => state.userAuthorizationReducer.usersData);
-  const visability: boolean = useSelector((state: any) => state.modalReducer.modalWindow.authorizationModalVisability);
+  const users: IUser[] = useSelector(getUsers);
+  const visability: boolean = useSelector(getAuthorizationModalVisability);
   const [registrationStatus, setRegistrationStatus] = useState(false);
   const form = useRef<any>(null);
 
@@ -32,7 +34,7 @@ export default function AuthorizationModal() {
     dispatch(actionCreator().addNewUser({
       login: values.login,
       password: values.password,
-      avatar: ''
+      avatar: null
     }));
     dispatch(actionCreator().changeAuthorizationModalVisability());
     setRegistrationStatus(false);

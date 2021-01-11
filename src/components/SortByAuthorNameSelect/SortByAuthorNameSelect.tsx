@@ -3,12 +3,13 @@ import { Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { TUser, TPost } from '../../store/reducers/postsReducer';
 import { actionCreator } from '../../store/actions';
+import { getPosts } from '../../store/selectors/posts-selectors';
 
 const { Option } = Select;
 
 export default function SortByAuthorNameSelect() {
   const dispatch = useDispatch();
-  const posts: TPost[] = useSelector((state: any) => state.postsReducer.postsPage.posts);
+  const posts: TPost[] = useSelector(getPosts);
   const [ authors, setAuthors ] = useState<TUser[] | null>(null);
 
   useEffect(() => {

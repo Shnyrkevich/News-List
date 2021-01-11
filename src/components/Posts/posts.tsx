@@ -6,17 +6,21 @@ import { Post } from './Post/post';
 import { actionCreator } from '../../store/actions';
 import { TPost } from '../../store/reducers/postsReducer';
 import { sortByDate } from '../../utils/sortByDate';
-import { IActiveUser } from '../../store/reducers/userAuthorizationReducer';
+import { IUser } from '../../store/reducers/userAuthorizationReducer';
 import { sortByAuthorName } from '../../utils/sortByAuthorName';
+import { getAuthUser } from '../../store/selectors/user-selectors';
+import { getPosts, getPostsQuantity } from '../../store/selectors/posts-selectors';
+import { getTags } from '../../store/selectors/tags-selector';
+import { getSortAuthorName, getSortByDateStatus } from '../../store/selectors/sort-selectors';
 
 export default function PostsList() {
   const dispatch = useDispatch();
-  const authUser: IActiveUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser);
-  const posts: TPost[] = useSelector((state: any) => state.postsReducer.postsPage.posts);
-  const tags: string[] = useSelector((state: any) => state.searchingTagsReducer.searchingTags);
-  const { actualPage, quantity } = useSelector((state: any) => state.postsQuantityReducer.postsQuantity);
-  const sortStatus = useSelector((state: any) => state.sortReducer.sortByDateStatus);
-  const sortAuthorName = useSelector((state: any) => state.sortReducer.sortByAuthor);
+  const authUser: IUser = useSelector(getAuthUser);
+  const posts: TPost[] = useSelector(getPosts);
+  const tags: string[] = useSelector(getTags);
+  const { actualPage, quantity } = useSelector(getPostsQuantity);
+  const sortStatus = useSelector(getSortByDateStatus);
+  const sortAuthorName = useSelector(getSortAuthorName);
 
   let currentPosts = sortByAuthorName(sortAuthorName, sortByDate(sortStatus, posts));
   
@@ -35,8 +39,17 @@ export default function PostsList() {
 
   return (
     <div className='posts-container'>
-      {currentPosts.length ?
-       currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage).map((el: TPost) => <Post post={el} userPost={authUser.user ? authUser.user.id === el.user.id : false } key={el.id} />) : <Empty />}
+      {
+        currentPosts.length ?
+        currentPosts.slice(actualPage * quantity - quantity, quantity * actualPage)
+        .map((el: TPost) => (
+          <Post 
+            post={el} 
+            userPost={authUser ? authUser.id === el.user.id : false } 
+            key={el.id} 
+          />)) :
+        <Empty />
+      }
     </div>
   );
 }

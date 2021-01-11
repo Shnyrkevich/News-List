@@ -79,7 +79,7 @@ export type SetTagsAction = {
 export type NewUser = {
   login: string
   password: string
-  avatar: string
+  avatar: string | null
 }
 
 export type AddNewUserAction = {

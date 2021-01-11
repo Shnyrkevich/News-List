@@ -4,10 +4,12 @@ import { Modal, Input, message } from 'antd';
 import { actionCreator, NewPost } from '../../store/actions';
 import TagsPeacker from '../TagsPeacker/TagsPeacker';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
+import { getAuthUser } from '../../store/selectors/user-selectors';
+import { getAddNewPostModalVisability } from '../../store/selectors/modal-windows-selectors';
 
 export default function PostModal() {
-  const visability: boolean = useSelector((state: any) => state.modalReducer.modalWindow.postModalVisability);
-  const authUser: IUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser.user)
+  const visability: boolean = useSelector(getAddNewPostModalVisability);
+  const authUser: IUser = useSelector(getAuthUser);
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
