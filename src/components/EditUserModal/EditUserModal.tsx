@@ -1,8 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import './edit-user-modal.css';
 import { Form, Input, Button, Modal, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
+import AvatarUpload from '../AvatarUpload/AvatarUpload';
 
 const layout = {
   labelCol: { span: 6 },
@@ -22,44 +24,53 @@ export default function EditUserModal() {
   const dispatch = useDispatch();
   const visability: boolean = useSelector((state: any) => state.modalReducer.modalWindow.editUserModalVisability);
   const authUser: IUser = useSelector((state: any) => state.userAuthorizationReducer.activeUser.user);
+  const [ userAvatar, setUserAvatar ] = useState<null | string>(null);
   const form = useRef<any>(null);
+
+  useEffect(() => {
+    if (authUser) {
+      setUserAvatar(authUser.avatar);
+    }
+  }, [authUser])
 
   const onFinish = (values: IForm) => {
     const newData = {
       id: authUser.id,
-      ...values
+      ...values,
+      avatar: userAvatar
     };
     dispatch(actionCreator().changeUserData(newData));
-    message.success('This is a success message');
-    dispatch(actionCreator().changeUserModalVisability())
-  } 
+    message.success('User data saved');
+    onCancel();
+  }
 
-  return (
-    <Modal 
+  const onCancel = (): void => {
+    dispatch(actionCreator().changeUserModalVisability());
+  }
+
+  return ( 
+    authUser ?
+    <Modal
+      className='edit-user-modal'
       title={'Edit User data'}
       visible={visability}
       footer={null}
-      onCancel={() => dispatch(actionCreator().changeUserModalVisability())}
+      onCancel={onCancel}
     >
+      <AvatarUpload imageUrl={userAvatar} setImageUrl={(url: string) => setUserAvatar(url)} />
       <Form
         {...layout}
         ref={form}
         name='user-uthorization'
         onFinish={onFinish}
-        initialValues={authUser ? {
-          login: authUser.login,
-          password: authUser.password,
-        } : {
-          login: '',
-          password: '',
-        }}
+        initialValues={authUser}
       >
         <Form.Item
           label='Login'
           name='login'
           rules={[{ required: true, message: 'Please input your login!' }]}
         >
-          <Input />
+          <Input/>
         </Form.Item>
         <Form.Item
           label='Password'
@@ -67,7 +78,7 @@ export default function EditUserModal() {
           rules={[{ required: true, message: 'Please input your password!' }]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password/>
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type='primary' htmlType='submit'>
@@ -75,6 +86,7 @@ export default function EditUserModal() {
           </Button>
         </Form.Item>
       </Form>
-    </Modal>
+    </Modal> :
+    null
   );
 }

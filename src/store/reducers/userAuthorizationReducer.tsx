@@ -11,7 +11,7 @@ export type IUser = {
   id: number
   login: string
   password: string
-  avatar?: string
+  avatar: string | null
 }
 
 export type IActiveUser = {

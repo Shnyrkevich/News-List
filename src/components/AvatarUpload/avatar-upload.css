@@ -1,0 +1,11 @@
+.avatar-uploader > .ant-upload {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.ant-upload-picture-card-wrapper {
+  width: 80px;
+  height: 80px;
+  margin: 5px auto 5px auto;
+}
