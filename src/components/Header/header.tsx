@@ -6,6 +6,7 @@ import { UserOutlined, EditOutlined, DeleteOutlined, ExportOutlined } from '@ant
 import { actionCreator } from '../../store/actions';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
 import { getAuthUser } from '../../store/selectors/user-selectors';
+import Navigation from '../Navigation/Navigation';
 
 export default function Header() {
   const authUser: IUser | null = useSelector(getAuthUser);
@@ -53,6 +54,7 @@ export default function Header() {
         <Typography.Title level={2} className='header-title'>
           News list
         </Typography.Title>
+        <Navigation />
         {
           authUser ?
           <Dropdown overlay={menu} trigger={['click']}>

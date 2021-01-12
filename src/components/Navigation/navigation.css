@@ -1,0 +1,15 @@
+.navigation {
+  margin-right: 30px;
+}
+
+.ant-breadcrumb > span a,
+.ant-breadcrumb > span:last-child a,
+.ant-breadcrumb-separator {
+  color: white;
+}
+
+.ant-breadcrumb span a.active,
+.ant-breadcrumb span a:hover {
+  color: #40a9ff;
+}
+
