@@ -1,3 +1,4 @@
+import { Currency } from './reducers/currenciesPageReducer';
 import { TPost, TUser } from './reducers/postsReducer';
 import { IUser } from './reducers/userAuthorizationReducer';
 
@@ -19,7 +20,10 @@ export const types = {
   EXIT_USER: 'EXIT_USER' as const,
   CHANGE_SORT_BY_DATE_STATUS: 'CHANGE_SORT_BY_DATE_STATUS' as const,
   SET_AUTHOR_FOR_SORT: 'SET_AUTHOR_FOR_SORT' as const,
-  CHANGE_USER_IN_POSTS: 'CHANGE_USER_IN_POSTS' as const
+  CHANGE_USER_IN_POSTS: 'CHANGE_USER_IN_POSTS' as const,
+  GET_CURRENCIES_SUCCESS: 'GET_CURRENCIES_SUCCESS' as const,
+  GET_CURRENCIES_ERROR: 'GET_CURRENCIES_ERROR' as const,
+  CHANGE_CURRENCIES_LOADING_STATUS: 'CHANGE_CURRENCIES_LOADING_STATUS' as const,
 };
 
 export type NewPost = {
@@ -122,6 +126,20 @@ export type ChangeUserInPostsAction = {
   user: TUser
 }
 
+export type GetCurrenciesSuccessAction = {
+  type: typeof types.GET_CURRENCIES_SUCCESS
+  currencies: Currency[]
+}
+
+export type GetCurrenciesErrorAction = {
+  type: typeof types.GET_CURRENCIES_ERROR
+}
+
+export type ChangeCurrenciesLoadingStatus = {
+  type: typeof types.CHANGE_CURRENCIES_LOADING_STATUS
+  status: boolean
+}
+
 export const actionCreator = () => {
   return {
     addNewPost: (newPost: NewPost): AddNewPostAction => ({ type: types.ADD_NEW_POST, newPost }),
@@ -142,5 +160,8 @@ export const actionCreator = () => {
     changeSortByDateStatus: (status: number): ChangeSortByDateStatusAction => ({ type: types.CHANGE_SORT_BY_DATE_STATUS, status }),
     setAuhorForSort: (authorName: string | null): SetAuthorForSortAction => ({ type: types.SET_AUTHOR_FOR_SORT, authorName }),
     changeUserInPosts: (user: TUser): ChangeUserInPostsAction => ({ type: types.CHANGE_USER_IN_POSTS, user }),
+    getCurrenciesErrorAction: (): GetCurrenciesErrorAction => ({ type: types.GET_CURRENCIES_ERROR }),
+    getCurrenciesSuccessAction: (currencies: any): GetCurrenciesSuccessAction => ({ type: types.GET_CURRENCIES_SUCCESS, currencies }),
+    changeCurrenciesLoadingStatus: (status: boolean): ChangeCurrenciesLoadingStatus => ({ type: types.CHANGE_CURRENCIES_LOADING_STATUS, status }),
   };
 };
