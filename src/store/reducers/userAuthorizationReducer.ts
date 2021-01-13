@@ -29,10 +29,16 @@ type ActionTypes = AddNewUserAction | DeleteUserAction | ChangeUserDataAction | 
 const initialState: InitialState = {
   usersData: [
     {
+      id: 0,
+      login: 'Admin',
+      password: 'Admin',
+      avatar: null
+    },
+    {
       id: 1,
       login: 'Peter',
       password: '12345678',
-      avatar: ''
+      avatar: null
     }
   ],
   activeUser: {
