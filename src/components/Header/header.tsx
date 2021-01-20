@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './header.css';
-import { Button, Typography, Space, Avatar, Dropdown, Menu, Popconfirm } from 'antd';
-import { UserOutlined, EditOutlined, DeleteOutlined, ExportOutlined } from '@ant-design/icons';
+import { Button, Typography, Space, Avatar, Dropdown, Menu, Popconfirm, Drawer } from 'antd';
+import { UserOutlined, EditOutlined, DeleteOutlined, ExportOutlined, MenuOutlined } from '@ant-design/icons';
 import { actionCreator } from '../../store/actions';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
 import { getAuthUser } from '../../store/selectors/user-selectors';
@@ -11,6 +11,25 @@ import Navigation from '../Navigation/Navigation';
 export default function Header() {
   const authUser: IUser | null = useSelector(getAuthUser);
   const dispatch = useDispatch();
+  const [shortForm, setShortForm] = useState<boolean>(false);
+  const [burgerMenuVisible, setBurgerMenuVisible] = useState<boolean>(false);
+
+  function onPageSizeChange(e: any): void {
+    if (e.target.innerWidth <= 360) {
+      setShortForm(true);
+    } else if (e.target.innerWidth > 360) {
+      setShortForm(false);
+      setBurgerMenuVisible(false);
+    }
+  }
+
+  useEffect(() => {
+    if (window.innerWidth <= 360) setShortForm(true);
+    window.addEventListener('resize', onPageSizeChange);
+    return () => {
+      window.removeEventListener('resize', onPageSizeChange);
+    };
+  }, [shortForm]);
 
   function handleDropdownClick(e: any) {
     switch(e.key) {
@@ -48,13 +67,40 @@ export default function Header() {
     </Menu>
   );
 
+  function onBurgerMenuClose() {
+    setBurgerMenuVisible(false);
+  }
+
   return (
     <header className='header'>
       <div className='header-content'>
-        <Typography.Title level={2} className='header-title'>
-          News list
-        </Typography.Title>
-        <Navigation />
+        {
+          !shortForm ?
+          <>
+            <Typography.Title level={2} className='header-title'>
+              News list
+            </Typography.Title>
+            <Navigation />
+          </> :
+          <>
+            <Button
+              className='burger-button'
+              type='ghost'
+              shape='circle'
+              icon={<MenuOutlined size={28}/>}
+              onClick={() => setBurgerMenuVisible(true)}
+            />
+            <Drawer
+              title="News List"
+              placement="left"
+              closable={true}
+              onClose={onBurgerMenuClose}
+              visible={burgerMenuVisible}
+            >
+              <Navigation />
+            </Drawer>
+          </>
+        }
         {
           authUser ?
           <Dropdown overlay={menu} trigger={['click']}>

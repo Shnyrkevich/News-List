@@ -1,15 +1,34 @@
 .navigation {
   margin-right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center
 }
 
-.ant-breadcrumb > span a,
-.ant-breadcrumb > span:last-child a,
-.ant-breadcrumb-separator {
+.navigation a {
   color: white;
+  margin: 0 5px 0 5px;
 }
 
-.ant-breadcrumb span a.active,
-.ant-breadcrumb span a:hover {
+.navigation a.active,
+.navigation a:hover {
   color: #40a9ff;
 }
 
+@media (max-width: 400px) {
+  .navigation {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .navigation {
+    flex-direction: column;
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+
+  .navigation a {
+    color: black;
+  }
+}

@@ -121,11 +121,11 @@ const postsReducer = (state = initialState, action: ActionTypes): InitialState =
         postsPage: {
           ...state.postsPage,
           posts: [
-            ...state.postsPage.posts,
             {
               id: state.postsPage.posts.length + 1,
               ...action.newPost
-            }
+            },
+            ...state.postsPage.posts,
           ]
         }
       };

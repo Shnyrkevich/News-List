@@ -44,14 +44,14 @@ export default function CurrenciesPage() {
     <div className='currencies-container'>
       {
         isLoading ?
-        <Spin size="large" /> :
+        <Spin size='large' /> :
         currencies && !currencies.length ?
         <Result
-          status="500"
-          title="500"
-          subTitle="Sorry, something went wrong."
+          status='500'
+          title='500'
+          subTitle='Sorry, something went wrong.'
         /> :
-        <div className="currencies-container-currencies">
+        <div className='currencies-container-currencies'>
           <Typography.Title level={3}>
             {`Exchange rates of the Belarusian ruble on ${new Date().toString().split(' ').slice(1, 4).join(' ')}`}
           </Typography.Title>

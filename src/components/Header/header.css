@@ -20,3 +20,29 @@
   justify-content: center;
   align-items: center;
 }
+
+.burger-button {
+  border: 2px solid white;
+  color: white;
+}
+
+.ant-drawer-header {
+  padding: 11px 10px;
+}
+
+.ant-drawer-close {
+  padding: 14px;
+}
+
+@media (max-width: 450px) {
+  .header-content {
+    width: 95%;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-content {
+    width: 90%;
+    justify-content: space-between;
+  }
+}
