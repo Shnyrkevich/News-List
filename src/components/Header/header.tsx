@@ -90,6 +90,9 @@ export default function Header() {
               icon={<MenuOutlined size={28}/>}
               onClick={() => setBurgerMenuVisible(true)}
             />
+            <Typography.Title level={2} className='header-title'>
+              News list
+            </Typography.Title>
             <Drawer
               title="News List"
               placement="left"

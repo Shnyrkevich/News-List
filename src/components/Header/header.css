@@ -10,7 +10,8 @@
 }
 
 .header-content h2 {
-  margin-bottom: auto;
+  margin-bottom: 0;
+  line-height: 1;
   color: white;
 }
 
@@ -24,6 +25,7 @@
 .burger-button {
   border: 2px solid white;
   color: white;
+  margin-right: 10px;
 }
 
 .ant-drawer-header {
