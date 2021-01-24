@@ -8,23 +8,23 @@ import { IUser } from '../../store/reducers/userAuthorizationReducer';
 import { getAuthUser } from '../../store/selectors/user-selectors';
 import Navigation from '../Navigation/Navigation';
 
-export default function Header() {
-  const authUser: IUser | null = useSelector(getAuthUser);
+export default function Header() { 
   const dispatch = useDispatch();
+  const authUser: IUser | null = useSelector(getAuthUser);
   const [shortForm, setShortForm] = useState<boolean>(false);
   const [burgerMenuVisible, setBurgerMenuVisible] = useState<boolean>(false);
 
-  function onPageSizeChange(e: any): void {
-    if (e.target.innerWidth <= 360) {
+  function onPageSizeChange(): void {
+    if (document.documentElement.offsetWidth <= 360) {
       setShortForm(true);
-    } else if (e.target.innerWidth > 360) {
+    } else {
       setShortForm(false);
       setBurgerMenuVisible(false);
     }
   }
 
   useEffect(() => {
-    if (window.innerWidth <= 360) setShortForm(true);
+    if (document.documentElement.offsetWidth <= 360) setShortForm(true);
     window.addEventListener('resize', onPageSizeChange);
     return () => {
       window.removeEventListener('resize', onPageSizeChange);

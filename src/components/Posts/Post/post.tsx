@@ -62,7 +62,7 @@ export function Post(props: IProps) {
       </Menu.Item>
       <Menu.Item key='2' icon={<DeleteOutlined />}>
         <Popconfirm
-          title='Are you sure'
+          title='Are you sure?'
           okText='Yes' cancelText='No'
           onConfirm={() => dispatch(actionCreator().deletePost(props.post.id))}
         >
@@ -102,7 +102,7 @@ export function Post(props: IProps) {
         {
           editStatus ?
           <>
-            <Input placeholder='Enter posts Title' value={title} onChange={handleEditInputTitle}/>
+            <Input placeholder='Enter post Title' value={title} onChange={handleEditInputTitle}/>
             <Input.TextArea placeholder='Enter text' value={text} onChange={handleEditInputText} autoSize />
           </> :
           <>

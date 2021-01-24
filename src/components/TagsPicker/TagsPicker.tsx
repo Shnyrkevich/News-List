@@ -14,7 +14,7 @@ export default function TagsPeacker(props: IProps) {
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState('');
 
-  const inputRefEdit = React.useRef<any>(null);
+  const inputRefEdit = useRef<any>(null);
 
   function handleClose(removedTag: string) {
     props.setTags(props.searchingTags.filter((tag: string) => (tag) !== removedTag));

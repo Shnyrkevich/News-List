@@ -71,7 +71,7 @@ export default function PostModal() {
       Title
       <Input
         value={title}
-        placeholder='Enter posts title'
+        placeholder='Enter post title'
         allowClear
         onChange={titleChage}
       />
