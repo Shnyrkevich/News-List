@@ -3,13 +3,13 @@ import './postQuantitySelect.css';
 import { Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
-import { getPostsQuantity } from '../../store/selectors/posts-selectors';
+import { getPostsQuantityOnPage } from '../../store/selectors/posts-selectors';
 
 const { Option } = Select;
 
 export default function PostsQuantitySelect() {
   const dispatch = useDispatch();
-  const { quantity } = useSelector(getPostsQuantity);
+  const quantity = useSelector(getPostsQuantityOnPage)
 
   function handleChange(value: string): void {
     dispatch(actionCreator().changePostsQuantity(Number(value)));

@@ -4,12 +4,13 @@ import { Pagination } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreator } from '../../store/actions';
 import { TPost } from '../../store/reducers/postsReducer';
-import { getActualPosts, getPostsQuantity } from '../../store/selectors/posts-selectors';
+import { getActualPostsPage, getPostsByTags, getPostsQuantityOnPage } from '../../store/selectors/posts-selectors';
 
 export default function PostsPagination() {
   const dispatch = useDispatch();
-  const { actualPage, quantity } = useSelector(getPostsQuantity);
-  const actualPosts: TPost[] = useSelector(getActualPosts);
+  const actualPage = useSelector(getActualPostsPage);
+  const quantity = useSelector(getPostsQuantityOnPage);
+  const actualPosts: TPost[] = useSelector(getPostsByTags);
   
   function handlePageChange(page: number): void {
     dispatch(actionCreator().changePage(page));
