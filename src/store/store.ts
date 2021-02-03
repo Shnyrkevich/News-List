@@ -6,6 +6,7 @@ import searchingTagsReducer from './reducers/searchingTagsReducer';
 import userAuthorizationReducer from './reducers/userAuthorizationReducer';
 import sortReducer from './reducers/sortReducer';
 import currenciesPageReducer from './reducers/currenciesPageReducer';
+import rssNewsReducer from './reducers/rssNewReducer';
 import thunk from 'redux-thunk';
 
 let reducers = combineReducers({
@@ -15,7 +16,8 @@ let reducers = combineReducers({
   searchingTagsReducer,
   userAuthorizationReducer,
   sortReducer,
-  currenciesPageReducer
+  currenciesPageReducer,
+  rssNewsReducer
 });
 
 export type RootState = ReturnType<typeof reducers>

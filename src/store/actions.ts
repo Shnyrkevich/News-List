@@ -1,6 +1,7 @@
 import { Currency } from './reducers/currenciesPageReducer';
 import { TPost, TUser } from './reducers/postsReducer';
 import { IUser } from './reducers/userAuthorizationReducer';
+import { CurrentRssNews, RssNewsSource } from './reducers/rssNewReducer'; 
 
 export const types = {
   ADD_NEW_POST: 'ADD_NEW_POST' as const,
@@ -24,6 +25,9 @@ export const types = {
   GET_CURRENCIES_SUCCESS: 'GET_CURRENCIES_SUCCESS' as const,
   GET_CURRENCIES_ERROR: 'GET_CURRENCIES_ERROR' as const,
   CHANGE_CURRENCIES_LOADING_STATUS: 'CHANGE_CURRENCIES_LOADING_STATUS' as const,
+  SET_CURRENT_RSS_NEWS_SUCCESS: 'SET_CURRENT_RSS_NEWS_SUCCESS' as const,
+  ADD_NEW_RSS_SOURCE: 'ADD_NEW_RSS_SOURCE' as const,
+  CHANGE_RSS_PAGE_LOADING_STATUS: 'CHANGE_RSS_PAGE_LOADING_STATUS' as const
 };
 
 export type NewPost = {
@@ -140,6 +144,21 @@ export type ChangeCurrenciesLoadingStatus = {
   status: boolean
 }
 
+export type SetCurrentRssNewsAction = {
+  type: typeof types.SET_CURRENT_RSS_NEWS_SUCCESS
+  data: CurrentRssNews
+}
+
+export type AddNewRssSourceAction = {
+  type: typeof types.ADD_NEW_RSS_SOURCE
+  source: RssNewsSource
+}
+
+export type ChangeLoadingStatusOnRssPageAction = {
+  type: typeof types.CHANGE_RSS_PAGE_LOADING_STATUS
+  status: boolean
+}
+
 export const actionCreator = () => {
   return {
     addNewPost: (newPost: NewPost): AddNewPostAction => ({ type: types.ADD_NEW_POST, newPost }),
@@ -163,5 +182,8 @@ export const actionCreator = () => {
     getCurrenciesErrorAction: (): GetCurrenciesErrorAction => ({ type: types.GET_CURRENCIES_ERROR }),
     getCurrenciesSuccessAction: (currencies: any): GetCurrenciesSuccessAction => ({ type: types.GET_CURRENCIES_SUCCESS, currencies }),
     changeCurrenciesLoadingStatus: (status: boolean): ChangeCurrenciesLoadingStatus => ({ type: types.CHANGE_CURRENCIES_LOADING_STATUS, status }),
+    setCurrentRssNews: (data: CurrentRssNews): SetCurrentRssNewsAction => ({ type: types.SET_CURRENT_RSS_NEWS_SUCCESS, data }),
+    addNewRssNewsSource: (source: RssNewsSource): AddNewRssSourceAction => ({ type: types.ADD_NEW_RSS_SOURCE, source }),
+    changeLoadingStatusOnRssPage: (status: boolean): ChangeLoadingStatusOnRssPageAction => ({ type: types.CHANGE_RSS_PAGE_LOADING_STATUS, status }),
   };
 };
