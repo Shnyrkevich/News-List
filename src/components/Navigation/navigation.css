@@ -1,8 +1,6 @@
 .navigation {
   margin-right: 30px;
   display: flex;
-  justify-content: center;
-  align-items: center
 }
 
 .navigation a {
@@ -15,20 +13,22 @@
   color: #40a9ff;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 630px) {
   .navigation {
-    margin-right: 10px;
+    margin-right: 5px;
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 570px) {
   .navigation {
     flex-direction: column;
+    align-items: flex-start;
     font-size: 15px;
     text-transform: uppercase;
   }
 
   .navigation a {
     color: black;
+    margin: 15px auto 15px auto;
   }
 }

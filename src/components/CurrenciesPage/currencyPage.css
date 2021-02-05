@@ -7,3 +7,7 @@
 .currencies-container-currencies {
   margin-top: 5vh;
 }
+
+.currency-name {
+  overflow-wrap: normal;
+}

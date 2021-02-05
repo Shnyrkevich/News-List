@@ -1,0 +1,27 @@
+.administration-container {
+  width: 70%;
+  padding-top: 20px;
+  margin: 0 auto;
+}
+
+.ant-form-inline .ant-form-item-with-help {
+  margin-bottom: 0;
+}
+
+.rss-news-form .ant-form-item {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .administration-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 420px) {
+  .rss-news-form .ant-form-item {
+    width: 100%;
+    margin-right: 0;
+  }
+}

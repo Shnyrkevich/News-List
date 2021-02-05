@@ -11,6 +11,7 @@ const columns = [
     dataIndex: 'Cur_Name',
     key: 'Cur_Name',
     fixed: true,
+    render: (name: string) => <span className='currency-name'>{name}</span>,
   },
   {
     title: 'Scale',

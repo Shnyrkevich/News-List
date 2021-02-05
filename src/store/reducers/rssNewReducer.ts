@@ -6,6 +6,7 @@ import {
 } from '../actions';
 
 export type RssNewsSource = {
+  key: number
   sourceName: string
   sourceLink: string
 }
@@ -29,10 +30,12 @@ const initialState: InitialState = {
   rssPage: {
     rssNewsSources: [
       {
+        key: 0,
         sourceName: 'TUT.BY',
         sourceLink: 'https://news.tut.by/rss/all.rss'
       },
       {
+        key: 1,
         sourceName: 'Hubr',
         sourceLink: 'https://habr.com/ru/rss/hubs/all/'
       }

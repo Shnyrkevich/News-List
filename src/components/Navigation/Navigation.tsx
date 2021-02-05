@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRssNewsSources } from '../../store/selectors/rss-news-selector';
 import { RssNewsSource } from '../../store/reducers/rssNewReducer';
 import { getCurrentRssNewsThunkCreator } from '../../store/thunks/rss-news-thunk';
+import { getAuthUser } from '../../store/selectors/user-selectors';
 
 export default function Navigation() {
   const dispatch = useDispatch();
+  const activeUser = useSelector(getAuthUser);
   const rssSources = useSelector(getRssNewsSources);
 
   const menu = (
@@ -47,11 +49,20 @@ export default function Navigation() {
         <a
           className='ant-dropdown-link'
           onClick={e => e.preventDefault()}
-          style={{ 'width': '80px' }}
+          style={{ 'width': '82px' }}
         >
           RSSNews <DownOutlined />
         </a>
       </Dropdown>
+      {
+        activeUser?.id === 0 ?
+        <NavLink
+          exact 
+          to='/admin_room'>
+            SiteControl
+        </NavLink> : 
+        null
+      }
     </nav>
   );
 }
