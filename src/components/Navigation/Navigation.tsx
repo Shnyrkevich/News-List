@@ -6,6 +6,7 @@ import { DownOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRssNewsSources } from '../../store/selectors/rss-news-selector';
 import { RssNewsSource } from '../../store/reducers/rssNewReducer';
+import { getCurrentRssNewsThunkCreator } from '../../store/thunks/rss-news-thunk';
 
 export default function Navigation() {
   const dispatch = useDispatch();
@@ -15,7 +16,10 @@ export default function Navigation() {
     <Menu>
       {
         rssSources.map((el: RssNewsSource, ind: number) => (
-          <Menu.Item key={ind}>
+          <Menu.Item 
+            key={ind}
+            onClick={() => dispatch(getCurrentRssNewsThunkCreator(el.sourceLink))}
+          >
             <NavLink
               to={`/rss/${el.sourceName.toLowerCase()}`}
             >
