@@ -27,7 +27,9 @@ export const types = {
   CHANGE_CURRENCIES_LOADING_STATUS: 'CHANGE_CURRENCIES_LOADING_STATUS' as const,
   SET_CURRENT_RSS_NEWS_SUCCESS: 'SET_CURRENT_RSS_NEWS_SUCCESS' as const,
   ADD_NEW_RSS_SOURCE: 'ADD_NEW_RSS_SOURCE' as const,
-  CHANGE_RSS_PAGE_LOADING_STATUS: 'CHANGE_RSS_PAGE_LOADING_STATUS' as const
+  CHANGE_RSS_PAGE_LOADING_STATUS: 'CHANGE_RSS_PAGE_LOADING_STATUS' as const,
+  TOGGLE_VERIFICATION_LOADING_STATUS: 'TOGGLE_VERIFICATION_LOADING_STATUS' as const,
+  DELETE_RSS_NEWS_SOURCE: 'DELETE_RSS_NEWS_SOURCE' as const,
 };
 
 export type NewPost = {
@@ -159,6 +161,16 @@ export type ChangeLoadingStatusOnRssPageAction = {
   status: boolean
 }
 
+export type ToggleVerificationLoadingStatusAction = {
+  type: typeof types.TOGGLE_VERIFICATION_LOADING_STATUS
+  status: boolean
+}
+
+export type DeleteRssNewsSourceAction = {
+  type: typeof types.DELETE_RSS_NEWS_SOURCE
+  key: number
+}
+
 export const actionCreator = () => {
   return {
     addNewPost: (newPost: NewPost): AddNewPostAction => ({ type: types.ADD_NEW_POST, newPost }),
@@ -185,5 +197,7 @@ export const actionCreator = () => {
     setCurrentRssNews: (data: CurrentRssNews): SetCurrentRssNewsAction => ({ type: types.SET_CURRENT_RSS_NEWS_SUCCESS, data }),
     addNewRssNewsSource: (source: RssNewsSource): AddNewRssSourceAction => ({ type: types.ADD_NEW_RSS_SOURCE, source }),
     changeLoadingStatusOnRssPage: (status: boolean): ChangeLoadingStatusOnRssPageAction => ({ type: types.CHANGE_RSS_PAGE_LOADING_STATUS, status }),
+    toggleVerificationLinkLoadingStatus: (status: boolean): ToggleVerificationLoadingStatusAction => ({ type: types.TOGGLE_VERIFICATION_LOADING_STATUS, status }),
+    deleteRssNewsSource: (key: number): DeleteRssNewsSourceAction => ({ type: types.DELETE_RSS_NEWS_SOURCE, key })
   };
 };

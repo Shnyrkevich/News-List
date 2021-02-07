@@ -13,3 +13,6 @@ export function getCurrentRssNews(state: RootState): CurrentRssNews | null {
   return state.rssNewsReducer.rssPage.currentSource;
 }
 
+export function getLinkVerification(state: RootState): boolean {
+  return state.rssNewsReducer.rssPage.linkVerificationLoadingStatus;
+}

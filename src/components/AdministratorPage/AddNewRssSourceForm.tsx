@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkRssNewsSourceOnReadability } from '../../store/thunks/rss-news-thunk';
+import { getLinkVerification } from '../../store/selectors/rss-news-selector';
+
+export type FormValues = {
+  sourceName: string
+  sourceLink: string
+}
 
 export default function AddNewRssSourceForm() {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [, forceUpdate] = useState({});
+  const linkVerification = useSelector(getLinkVerification);
 
-  // To disable submit button at the beginning.
   useEffect(() => {
     forceUpdate({});
   }, []);
 
-  const onFinish = (values: any) => {
-    console.log('Finish:', values);
+  const onFinish = (values: FormValues) => {
+    dispatch(checkRssNewsSourceOnReadability(values));
   };
 
   return (
@@ -26,18 +35,20 @@ export default function AddNewRssSourceForm() {
         name='sourceName'
         rules={[{ required: true, message: 'Please input source name!' }]}
       >
-        <Input placeholder='RssSource Name' allowClear />
+        <Input placeholder='RssSource Name' allowClear disabled={linkVerification ? true : false}/>
       </Form.Item>
       <Form.Item
-        name='sourceUrl'
+        name='sourceLink'
         rules={[{ required: true, message: 'Please input source URL!' }]}
       >
-        <Input placeholder='RssSource URL' allowClear />
+        <Input placeholder='RssSource URL' allowClear disabled={linkVerification ? true : false}/>
       </Form.Item>
       <Form.Item shouldUpdate={true}>
         {() => (
           <Button
+            type='primary'
             htmlType='submit'
+            loading={linkVerification ? true : false}
             disabled={
               !form.isFieldsTouched(true) ||
               !!form.getFieldsError().filter(({ errors }) => errors.length).length

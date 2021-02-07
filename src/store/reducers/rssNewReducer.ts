@@ -2,7 +2,9 @@ import {
   types,
   SetCurrentRssNewsAction,
   AddNewRssSourceAction,
-  ChangeLoadingStatusOnRssPageAction
+  ChangeLoadingStatusOnRssPageAction,
+  ToggleVerificationLoadingStatusAction,
+  DeleteRssNewsSourceAction
 } from '../actions';
 
 export type RssNewsSource = {
@@ -19,6 +21,7 @@ export type CurrentRssNews = {
 type RssPage = {
   rssNewsSources: RssNewsSource[]
   currentSource: CurrentRssNews | null
+  linkVerificationLoadingStatus: boolean
   isLoading: boolean
 }
 
@@ -40,12 +43,14 @@ const initialState: InitialState = {
         sourceLink: 'https://habr.com/ru/rss/hubs/all/'
       }
     ],
+    linkVerificationLoadingStatus: false,
     currentSource: null,
     isLoading: false
   }
 }
 
-type ActionType = ChangeLoadingStatusOnRssPageAction | AddNewRssSourceAction | SetCurrentRssNewsAction;
+type ActionType = ChangeLoadingStatusOnRssPageAction | AddNewRssSourceAction | SetCurrentRssNewsAction | ToggleVerificationLoadingStatusAction
+                  | DeleteRssNewsSourceAction;
 
 export default function rssNewsReducer(state = initialState, action: ActionType): InitialState {
   switch(action.type) {
@@ -73,6 +78,24 @@ export default function rssNewsReducer(state = initialState, action: ActionType)
         rssPage: {
           ...state.rssPage,
           rssNewsSources: [...state.rssPage.rssNewsSources, action.source],
+        }
+      }
+    }
+    case types.TOGGLE_VERIFICATION_LOADING_STATUS: {
+      return {
+        ...state,
+        rssPage: {
+          ...state.rssPage,
+          linkVerificationLoadingStatus: action.status
+        }
+      }
+    }
+    case types.DELETE_RSS_NEWS_SOURCE: {
+      return {
+        ...state,
+        rssPage: {
+          ...state.rssPage,
+          rssNewsSources: state.rssPage.rssNewsSources.filter((el: RssNewsSource) => el.key !== action.key),
         }
       }
     }

@@ -35,7 +35,7 @@ export default function LogInAvatar() {
         authUser?.id === 0 ?
         null :
         <Menu.Item key='2'>
-          <Popconfirm title='Are you sure'
+          <Popconfirm title='Are you sure?'
             okText='Yes'
             cancelText='No'
             onConfirm={handleOnConfirm}
