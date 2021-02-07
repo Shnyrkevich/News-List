@@ -18,7 +18,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 15px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .rss-news_button-container {
@@ -34,8 +34,9 @@
 
 .rss-news_cards-container {
   display: flex;
+  flex-direction: row;
+  justify-content: start;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .rss-news_cards-container .ant-card {

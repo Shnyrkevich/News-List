@@ -14,7 +14,7 @@ const layout = {
 };
 
 const tailLayout = {
-  wrapperCol: { offset: 6, span: 16 },
+  wrapperCol: { offset: 0, span: 24 },
 };
 
 interface IForm {
@@ -86,7 +86,7 @@ export default function EditUserModal() {
         >
           <Input.Password/>
         </Form.Item>
-        <Form.Item {...tailLayout}>
+        <Form.Item {...tailLayout} className='edit-user-modal_button-submit-container'>
           <Button type='primary' htmlType='submit'>
             Save
           </Button>

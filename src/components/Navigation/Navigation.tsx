@@ -45,14 +45,21 @@ export default function Navigation() {
       >
         Currencies
       </NavLink>
-      <Dropdown overlay={menu} trigger={['click']}>
-        <a
+      <Dropdown
+        overlay={menu}
+        trigger={['click']}
+        className={ window.location.href.includes('/rss') ? 'active' : '' }
+      >
+        <NavLink
           className='ant-dropdown-link'
-          onClick={e => e.preventDefault()}
           style={{ 'width': '82px' }}
+          to='/rss'
+          isActive={(match) => {
+            return match?.url === '/rss' ? true : false;
+          }}
         >
           RSSNews <DownOutlined />
-        </a>
+        </NavLink>
       </Dropdown>
       {
         activeUser?.id === 0 ?

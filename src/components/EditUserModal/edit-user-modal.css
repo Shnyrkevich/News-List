@@ -3,3 +3,12 @@
   flex-direction: column;
   padding-top: 10px;
 }
+
+.edit-user-modal_button-submit-container .ant-form-item-control-input-content {
+  display: flex;
+  align-items: center;
+}
+
+.edit-user-modal_button-submit-container button {
+  margin: 0 auto;
+}

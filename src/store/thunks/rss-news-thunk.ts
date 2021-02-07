@@ -13,7 +13,7 @@ export const getCurrentRssNewsThunkCreator = (rssNewsUrl: string) => {
     .then((response: any) => {
       dispatch(actionCreator().setCurrentRssNews({
         description: response.data.feed.description,
-        sourceNewsData: response.data.items
+        sourceNewsData: response.data.items.slice(0, 9)
       }));
       dispatch(actionCreator().changeLoadingStatusOnRssPage(false));
     })
