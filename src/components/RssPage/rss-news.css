@@ -10,6 +10,7 @@
 .ant-page-header {
   padding-left: 0;
   padding-right: 0;
+  width: 100%;
 }
 
 .rss-news-page-header {
@@ -34,8 +35,6 @@
 
 .rss-news_cards-container {
   display: flex;
-  flex-direction: row;
-  justify-content: start;
   flex-wrap: wrap;
 }
 

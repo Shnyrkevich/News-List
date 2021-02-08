@@ -1,7 +1,7 @@
 import { Currency } from './reducers/currenciesPageReducer';
 import { TPost, TUser } from './reducers/postsReducer';
 import { IUser } from './reducers/userAuthorizationReducer';
-import { CurrentRssNews, RssNewsSource } from './reducers/rssNewReducer'; 
+import { RssNewsSource } from './reducers/rssNewReducer'; 
 
 export const types = {
   ADD_NEW_POST: 'ADD_NEW_POST' as const,
@@ -148,7 +148,7 @@ export type ChangeCurrenciesLoadingStatus = {
 
 export type SetCurrentRssNewsAction = {
   type: typeof types.SET_CURRENT_RSS_NEWS_SUCCESS
-  data: CurrentRssNews
+  data: any[] | null
 }
 
 export type AddNewRssSourceAction = {
@@ -194,10 +194,12 @@ export const actionCreator = () => {
     getCurrenciesErrorAction: (): GetCurrenciesErrorAction => ({ type: types.GET_CURRENCIES_ERROR }),
     getCurrenciesSuccessAction: (currencies: any): GetCurrenciesSuccessAction => ({ type: types.GET_CURRENCIES_SUCCESS, currencies }),
     changeCurrenciesLoadingStatus: (status: boolean): ChangeCurrenciesLoadingStatus => ({ type: types.CHANGE_CURRENCIES_LOADING_STATUS, status }),
-    setCurrentRssNews: (data: CurrentRssNews): SetCurrentRssNewsAction => ({ type: types.SET_CURRENT_RSS_NEWS_SUCCESS, data }),
+    setCurrentRssNews: (data: any[]): SetCurrentRssNewsAction => ({ type: types.SET_CURRENT_RSS_NEWS_SUCCESS, data }),
     addNewRssNewsSource: (source: RssNewsSource): AddNewRssSourceAction => ({ type: types.ADD_NEW_RSS_SOURCE, source }),
     changeLoadingStatusOnRssPage: (status: boolean): ChangeLoadingStatusOnRssPageAction => ({ type: types.CHANGE_RSS_PAGE_LOADING_STATUS, status }),
     toggleVerificationLinkLoadingStatus: (status: boolean): ToggleVerificationLoadingStatusAction => ({ type: types.TOGGLE_VERIFICATION_LOADING_STATUS, status }),
     deleteRssNewsSource: (key: number): DeleteRssNewsSourceAction => ({ type: types.DELETE_RSS_NEWS_SOURCE, key })
   };
 };
+
+

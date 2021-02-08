@@ -13,6 +13,12 @@ export default function RssNews() {
   const currentNews = useSelector(getCurrentRssNews);
   const [redirectStatus, setRedirectStatus] = useState<boolean>(false);
 
+  useState(() => {
+    if ( !currentNews ) {
+      setRedirectStatus(true);
+    }
+  });
+
   return !redirectStatus ? 
     <>
       <PageHeader
@@ -23,7 +29,7 @@ export default function RssNews() {
       />
       <div className='rss-news_cards-container'>
         {
-          currentNews?.sourceNewsData.map((el: any, ind: number) => (
+          currentNews?.map((el: any, ind: number) => (
             <Card
               bordered={false}
               key={ind}

@@ -4,17 +4,18 @@ import { getRssNews } from '../../api/api_requests';
 import { FormValues } from '../../components/AdministratorPage/AddNewRssSourceForm';
 import { message } from 'antd';
 import { RootState } from '../store';
-import { RssNewsSource } from '../reducers/rssNewReducer';
- 
-export const getCurrentRssNewsThunkCreator = (rssNewsUrl: string) => {
-  return (dispatch: Dispatch): void => {
+import { ActionRssNewsTypes, RssNewsSource } from '../reducers/rssNewReducer';
+import { ThunkAction } from 'redux-thunk';
+import { AxiosResponse } from 'axios';
+
+type ThunkActionType = ThunkAction<void, RootState, unknown, ActionRssNewsTypes>;
+
+export const getCurrentRssNewsThunkCreator = (rssNewsUrl: string): ThunkActionType => {
+  return (dispatch) => {
     dispatch(actionCreator().changeLoadingStatusOnRssPage(true));
     getRssNews(rssNewsUrl)
-    .then((response: any) => {
-      dispatch(actionCreator().setCurrentRssNews({
-        description: response.data.feed.description,
-        sourceNewsData: response.data.items.slice(0, 9)
-      }));
+    .then((response) => {
+      dispatch(actionCreator().setCurrentRssNews(response.data.items.slice(0, 9)));
       dispatch(actionCreator().changeLoadingStatusOnRssPage(false));
     })
     .catch((e: any) => {
@@ -24,11 +25,11 @@ export const getCurrentRssNewsThunkCreator = (rssNewsUrl: string) => {
   } 
 }
 
-export const checkRssNewsSourceOnReadability = (values: FormValues) => {
-  return (dispatch: Dispatch, getState: () => RootState): void => {
+export const checkRssNewsSourceOnReadability = (values: FormValues): ThunkActionType => {
+  return (dispatch, getState) => {
     dispatch(actionCreator().toggleVerificationLinkLoadingStatus(true));
     getRssNews(values.sourceLink)
-    .then((response: any) => {
+    .then(() => {
       const sources = getState().rssNewsReducer.rssPage.rssNewsSources;
       if (sources.reduce((acc: boolean, el: RssNewsSource) => {
         return el.sourceLink === values.sourceLink || el.sourceName === values.sourceName ? true : false;
@@ -41,7 +42,6 @@ export const checkRssNewsSourceOnReadability = (values: FormValues) => {
         ...values
       }));
       dispatch(actionCreator().toggleVerificationLinkLoadingStatus(false));
-      return true;
     })
     .catch((e: any) => {
       console.log(e);

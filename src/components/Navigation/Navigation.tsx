@@ -52,7 +52,8 @@ export default function Navigation() {
       >
         <NavLink
           className='ant-dropdown-link'
-          style={{ 'width': '82px' }}
+          strict
+          style={{ 'width': '85px' }}
           to='/rss'
           isActive={(match) => {
             return match?.url === '/rss' ? true : false;

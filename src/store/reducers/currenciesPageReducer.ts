@@ -28,9 +28,9 @@ const initialState: InitialState = {
   }
 }
 
-type ActionType = GetCurrenciesErrorAction | GetCurrenciesSuccessAction | ChangeCurrenciesLoadingStatus;
+export type ActionCurrenciesTypes = GetCurrenciesErrorAction | GetCurrenciesSuccessAction | ChangeCurrenciesLoadingStatus;
 
-export default function currenciesPageReducer(state = initialState, action: ActionType): InitialState {
+export default function currenciesPageReducer(state = initialState, action: ActionCurrenciesTypes): InitialState {
   switch(action.type) {
     case types.GET_CURRENCIES_ERROR: {
       return {

@@ -13,14 +13,9 @@ export type RssNewsSource = {
   sourceLink: string
 }
 
-export type CurrentRssNews = {
-  description: string
-  sourceNewsData: any[]
-}
-
 type RssPage = {
   rssNewsSources: RssNewsSource[]
-  currentSource: CurrentRssNews | null
+  currentSourceData: any[] | null
   linkVerificationLoadingStatus: boolean
   isLoading: boolean
 }
@@ -44,15 +39,15 @@ const initialState: InitialState = {
       }
     ],
     linkVerificationLoadingStatus: false,
-    currentSource: null,
+    currentSourceData: null,
     isLoading: false
   }
 }
 
-type ActionType = ChangeLoadingStatusOnRssPageAction | AddNewRssSourceAction | SetCurrentRssNewsAction | ToggleVerificationLoadingStatusAction
+export type ActionRssNewsTypes = ChangeLoadingStatusOnRssPageAction | AddNewRssSourceAction | SetCurrentRssNewsAction | ToggleVerificationLoadingStatusAction
                   | DeleteRssNewsSourceAction;
 
-export default function rssNewsReducer(state = initialState, action: ActionType): InitialState {
+export default function rssNewsReducer(state = initialState, action: ActionRssNewsTypes): InitialState {
   switch(action.type) {
     case types.CHANGE_RSS_PAGE_LOADING_STATUS: {
       return {
@@ -68,7 +63,7 @@ export default function rssNewsReducer(state = initialState, action: ActionType)
         ...state,
         rssPage: {
           ...state.rssPage,
-          currentSource: action.data,
+          currentSourceData: action.data,
         }
       }
     }
