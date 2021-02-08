@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Form, Input, Button, Modal, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreator } from '../../store/actions';
-import { IUser } from '../../store/reducers/userAuthorizationReducer';
+import { IUser, userAuthorizationActions } from '../../store/reducers/userAuthorizationReducer';
 import { getAuthorizationModalVisability } from '../../store/selectors/modal-windows-selectors';
 import { getUsers } from '../../store/selectors/user-selectors';
+import { modalWindowsActions } from '../../store/reducers/modalReducer';
 
 type IForm = {
   login: string
@@ -28,20 +28,20 @@ export default function AuthorizationModal() {
   const onLogInFinish = (values: IForm) => {
     const userStatus = users.find((el: IUser) => el.login === values.login && el.password === values.password);
     if ( userStatus ) {
-      dispatch(actionCreator().logIn(userStatus));
-      dispatch(actionCreator().changeAuthorizationModalVisability());
+      dispatch(userAuthorizationActions.logIn(userStatus));
+      dispatch(modalWindowsActions.changeAuthorizationModalVisability());
     } else {
       message.error('Incorret login or password');
     }
   };
 
   const onRegistrationFinish = (values: IForm) => {
-    dispatch(actionCreator().addNewUser({
+    dispatch(userAuthorizationActions.addNewUser({
       login: values.login,
       password: values.password,
       avatar: null
     }));
-    dispatch(actionCreator().changeAuthorizationModalVisability());
+    dispatch(modalWindowsActions.changeAuthorizationModalVisability());
     setRegistrationStatus(false);
   }
 
@@ -59,7 +59,7 @@ export default function AuthorizationModal() {
           Return
         </Button>
       ] : null}
-      onCancel={() => dispatch(actionCreator().changeAuthorizationModalVisability())}
+      onCancel={() => dispatch(modalWindowsActions.changeAuthorizationModalVisability())}
     >
       <Form
         ref={form}

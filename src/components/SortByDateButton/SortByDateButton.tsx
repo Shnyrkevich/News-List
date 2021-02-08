@@ -3,14 +3,14 @@ import './sort-button.css';
 import { Button } from 'antd';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { actionCreator } from '../../store/actions';
+import { sortsActions } from '../../store/reducers/sortReducer';
 
 export default function SortByDateButton() {
   const dispatch = useDispatch();
   const [sortStatus, setSortStatus] = useState(0);
 
   useEffect(() => {
-    dispatch(actionCreator().changeSortByDateStatus(sortStatus));
+    dispatch(sortsActions.changeSortByDateStatus(sortStatus));
   }, [sortStatus])
 
   function buttonClick(): void {

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { TUser, TPost } from '../../store/reducers/postsReducer';
-import { actionCreator } from '../../store/actions';
 import { getPosts } from '../../store/selectors/posts-selectors';
+import { sortsActions } from '../../store/reducers/sortReducer';
 
 const { Option } = Select;
 
@@ -23,14 +23,14 @@ export default function SortByAuthorNameSelect() {
   }, [posts])
 
   function handleChange(value: string): void {
-    dispatch(actionCreator().setAuhorForSort(value));
+    dispatch(sortsActions.setAuhorForSort(value));
   }
 
   return (
     <div className='search-select-container'>
       <Select
         allowClear={true}
-        onClear={() => dispatch(actionCreator().setAuhorForSort(null))}
+        onClear={() => dispatch(sortsActions.setAuhorForSort(null))}
         style={{ width: 145 }}
         onChange={handleChange}
         placeholder={'Select an author'}

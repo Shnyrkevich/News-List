@@ -1,9 +1,12 @@
-import {
-  types,
-  GetCurrenciesErrorAction,
-  GetCurrenciesSuccessAction,
-  ChangeCurrenciesLoadingStatus
-} from '../actions';
+import { InferActionsTypes } from '../store';
+
+export const currenciesActions = {
+  getCurrenciesErrorAction: () => ({ type: 'GET_CURRENCIES_ERROR' } as const),
+  getCurrenciesSuccessAction: (currencies: Currency[] | []) => ({ type: 'GET_CURRENCIES_SUCCESS', currencies } as const),  
+  changeCurrenciesLoadingStatus: (status: boolean) => ({ type: 'CHANGE_CURRENCIES_LOADING_STATUS', status } as const)
+};
+
+export type CurrenciesActionsTypes = InferActionsTypes<typeof currenciesActions>;
 
 export type Currency = {
   Cur_Abbreviation: string
@@ -28,11 +31,9 @@ const initialState: InitialState = {
   }
 }
 
-export type ActionCurrenciesTypes = GetCurrenciesErrorAction | GetCurrenciesSuccessAction | ChangeCurrenciesLoadingStatus;
-
-export default function currenciesPageReducer(state = initialState, action: ActionCurrenciesTypes): InitialState {
+export default function currenciesPageReducer(state = initialState, action: CurrenciesActionsTypes): InitialState {
   switch(action.type) {
-    case types.GET_CURRENCIES_ERROR: {
+    case 'GET_CURRENCIES_ERROR': {
       return {
         ...state,
         currenciesPage: {
@@ -41,7 +42,7 @@ export default function currenciesPageReducer(state = initialState, action: Acti
         }
       }
     }
-    case types.GET_CURRENCIES_SUCCESS: {
+    case 'GET_CURRENCIES_SUCCESS': {
       return {
         ...state,
         currenciesPage: {
@@ -50,7 +51,7 @@ export default function currenciesPageReducer(state = initialState, action: Acti
         }
       }
     }
-    case types.CHANGE_CURRENCIES_LOADING_STATUS: {
+    case 'CHANGE_CURRENCIES_LOADING_STATUS': {
       return {
         ...state,
         currenciesPage: {

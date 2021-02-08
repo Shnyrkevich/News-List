@@ -1,8 +1,11 @@
-import {
-  types,
-  ChangePageAction,
-  ChangePostsQuantityAction,
-} from '../actions';
+import { InferActionsTypes } from '../store';
+
+export const postsQuantityActions = {
+  changePostsQuantity: (quantity: number) => ({ type: 'CHANGE_POSTS_QUANTITY', quantity } as const),
+  changePage: (page: number) => ({ type: 'CHANGE_PAGE', page } as const),
+};
+
+export type PostsQuantityActionsTypes = InferActionsTypes<typeof postsQuantityActions>;
 
 export type TPostsQuantity = {
   quantity: number
@@ -13,8 +16,6 @@ type InitialState = {
   postsQuantity: TPostsQuantity
 }
 
-type ActionTypes = ChangePageAction | ChangePostsQuantityAction;
-
 const initialState: InitialState = {
   postsQuantity: {
     quantity: 3,
@@ -22,9 +23,9 @@ const initialState: InitialState = {
   }
 };
 
-export default function postsQuantityReducer(state = initialState, action: ActionTypes): InitialState {
+export default function postsQuantityReducer(state = initialState, action: PostsQuantityActionsTypes): InitialState {
   switch(action.type) {
-    case types.CHANGE_POSTS_QUANTITY: {
+    case 'CHANGE_POSTS_QUANTITY': {
       return {
         ...state,
         postsQuantity: {
@@ -33,7 +34,7 @@ export default function postsQuantityReducer(state = initialState, action: Actio
             }
       }
     }
-    case types.CHANGE_PAGE: {
+    case 'CHANGE_PAGE': {
       return {
         ...state,
         postsQuantity: {

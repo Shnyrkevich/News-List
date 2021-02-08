@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Input, message } from 'antd';
-import { actionCreator, NewPost } from '../../store/actions';
 import TagsPeacker from '../TagsPicker/TagsPicker';
 import { IUser } from '../../store/reducers/userAuthorizationReducer';
 import { getAuthUser } from '../../store/selectors/user-selectors';
 import { getAddNewPostModalVisability } from '../../store/selectors/modal-windows-selectors';
+import { modalWindowsActions } from '../../store/reducers/modalReducer';
+import { NewPost, postsActions } from '../../store/reducers/postsReducer';
 
 export default function PostModal() {
   const visability: boolean = useSelector(getAddNewPostModalVisability);
@@ -25,7 +26,7 @@ export default function PostModal() {
   }, [visability]);
 
   function handelCancel() {
-    dispatch(actionCreator().changeModalVisability());
+    dispatch(modalWindowsActions.changeModalVisability());
   }
 
   function handleOk() {
@@ -45,8 +46,8 @@ export default function PostModal() {
       tags: tags,
       date: new Date().toString()
     };
-    dispatch(actionCreator().addNewPost(newPost));
-    dispatch(actionCreator().changeModalVisability());
+    dispatch(postsActions.addNewPost(newPost));
+    dispatch(modalWindowsActions.changeModalVisability());
   }
 
   function titleChage(e: React.ChangeEvent<HTMLInputElement>) {

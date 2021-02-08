@@ -20,7 +20,11 @@ let reducers = combineReducers({
   rssNewsReducer
 });
 
-export type RootState = ReturnType<typeof reducers>
+export type RootState = ReturnType<typeof reducers>;
+
+type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : any;
+
+export type InferActionsTypes<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>;
 
 function saveToLocalStorage(state: RootState): void {
   try {

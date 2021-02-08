@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Typography, Space, Avatar, Dropdown, Menu, Popconfirm } from 'antd';
 import { UserOutlined, EditOutlined, DeleteOutlined, ExportOutlined } from '@ant-design/icons';
-import { actionCreator } from '../../store/actions';
-import { IUser } from '../../store/reducers/userAuthorizationReducer';
+import { IUser, userAuthorizationActions } from '../../store/reducers/userAuthorizationReducer';
 import { getAuthUser } from '../../store/selectors/user-selectors';
+import { modalWindowsActions } from '../../store/reducers/modalReducer';
 
 export default function LogInAvatar() { 
   const dispatch = useDispatch();
@@ -13,17 +13,17 @@ export default function LogInAvatar() {
   function handleDropdownClick(e: any) {
     switch(e.key) {
       case '1':
-        dispatch(actionCreator().changeUserModalVisability());
+        dispatch(modalWindowsActions.changeUserModalVisability());
         break;
       case '3':
-        dispatch(actionCreator().userExit());
+        dispatch(userAuthorizationActions.userExit());
         break;
     }
   }
 
   function handleOnConfirm(): void {
     if (!authUser) return;
-    dispatch(actionCreator().deleteUser(authUser.id));
+    dispatch(userAuthorizationActions.deleteUser(authUser.id));
   }
 
   const menu = (
@@ -63,7 +63,7 @@ export default function LogInAvatar() {
         </Space>
       </Space>
     </Dropdown> :
-    <Button onClick={() => dispatch(actionCreator().changeAuthorizationModalVisability())}>
+    <Button onClick={() => dispatch(modalWindowsActions.changeAuthorizationModalVisability())}>
       LogIn
     </Button>;
 }

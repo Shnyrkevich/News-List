@@ -1,11 +1,10 @@
-import {
-  types,
-  AddNewUserAction,
-  DeleteUserAction,
-  ChangeUserDataAction,
-  LogInAction,
-  UserExitAction,
-} from '../actions';
+import { InferActionsTypes } from '../store';
+
+export type NewUser = {
+  login: string
+  password: string
+  avatar: string | null
+}
 
 export type IUser = {
   id: number
@@ -24,7 +23,15 @@ type InitialState = {
   activeUser: IActiveUser
 }
 
-type ActionTypes = AddNewUserAction | DeleteUserAction | ChangeUserDataAction | LogInAction | UserExitAction;
+export const userAuthorizationActions = {
+  addNewUser: (newUser: NewUser) => ({ type: 'ADD_NEW_USER', newUser } as const),
+  deleteUser: (id: number) => ({ type: 'DELETE_USER', id } as const),
+  changeUserData: (user: IUser) => ({ type: 'CHANGE_USER_DATA', user } as const),
+  logIn: (user: IUser) => ({ type: 'LOG_IN', user } as const),
+  userExit: () => ({ type: 'EXIT_USER' } as const),
+};
+
+type UserAuthorizationActionsTypes = InferActionsTypes<typeof userAuthorizationActions>;
 
 const initialState: InitialState = {
   usersData: [
@@ -47,9 +54,9 @@ const initialState: InitialState = {
   }
 }
 
-export default function userAuthorizationReducer(state = initialState, action: ActionTypes): InitialState {
+export default function userAuthorizationReducer(state = initialState, action: UserAuthorizationActionsTypes): InitialState {
   switch(action.type) {
-    case types.ADD_NEW_USER: {
+    case 'ADD_NEW_USER': {
       const newUser = {
         id: state.usersData.length + 1,
         ...action.newUser
@@ -63,7 +70,7 @@ export default function userAuthorizationReducer(state = initialState, action: A
         }
       }
     }
-    case types.DELETE_USER: {
+    case 'DELETE_USER': {
       return {
         ...state,
         usersData: state.usersData.filter((el: IUser) => el.id !== action.id),
@@ -73,7 +80,7 @@ export default function userAuthorizationReducer(state = initialState, action: A
         }
       }
     }
-    case types.CHANGE_USER_DATA: {
+    case 'CHANGE_USER_DATA': {
       return {
         ...state,
         usersData: state.usersData.map((el: IUser) => {
@@ -85,7 +92,7 @@ export default function userAuthorizationReducer(state = initialState, action: A
         }
       }
     }
-    case types.LOG_IN: {
+    case 'LOG_IN': {
       return {
         ...state,
         activeUser: {
@@ -94,7 +101,7 @@ export default function userAuthorizationReducer(state = initialState, action: A
         }
       }
     }
-    case types.EXIT_USER: {
+    case 'EXIT_USER': {
       return {
         ...state,
         activeUser: {

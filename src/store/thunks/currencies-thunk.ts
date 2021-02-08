@@ -1,12 +1,10 @@
-import { actionCreator } from '../actions';
 import { Dispatch } from 'redux';
 import { getCurrencies } from '../../api/api_requests';
-import { ActionCurrenciesTypes } from '../reducers/currenciesPageReducer';
-import { AxiosResponse } from 'axios';
+import { currenciesActions, CurrenciesActionsTypes } from '../reducers/currenciesPageReducer';
  
 export const getCurrenciesThunkCreator = () => {
-  return (dispatch: Dispatch<ActionCurrenciesTypes>): void => {
-    dispatch(actionCreator().changeCurrenciesLoadingStatus(true));
+  return (dispatch: Dispatch<CurrenciesActionsTypes>): void => {
+    dispatch(currenciesActions.changeCurrenciesLoadingStatus(true));
     getCurrencies()
     .then((response) => {
       const currencies = response.data.slice(0, 5).map((el: any, ind: number) => {
@@ -15,13 +13,13 @@ export const getCurrenciesThunkCreator = () => {
           key: ind
         };
       });
-      dispatch(actionCreator().getCurrenciesSuccessAction(currencies));
-      dispatch(actionCreator().changeCurrenciesLoadingStatus(false));
+      dispatch(currenciesActions.getCurrenciesSuccessAction(currencies));
+      dispatch(currenciesActions.changeCurrenciesLoadingStatus(false));
     })
     .catch((e: any) => {
       console.log(e);
-      dispatch(actionCreator().getCurrenciesErrorAction());
-      dispatch(actionCreator().changeCurrenciesLoadingStatus(false));
+      dispatch(currenciesActions.getCurrenciesErrorAction());
+      dispatch(currenciesActions.changeCurrenciesLoadingStatus(false));
     })
   } 
 }

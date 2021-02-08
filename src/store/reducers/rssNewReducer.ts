@@ -1,11 +1,14 @@
-import {
-  types,
-  SetCurrentRssNewsAction,
-  AddNewRssSourceAction,
-  ChangeLoadingStatusOnRssPageAction,
-  ToggleVerificationLoadingStatusAction,
-  DeleteRssNewsSourceAction
-} from '../actions';
+import { InferActionsTypes } from '../store';
+
+export const rssNewsActions = {
+  setCurrentRssNews: (data: any[]) => ({ type: 'SET_CURRENT_RSS_NEWS_SUCCESS', data } as const),
+  addNewRssNewsSource: (source: RssNewsSource) => ({ type: 'ADD_NEW_RSS_SOURCE', source } as const),
+  changeLoadingStatusOnRssPage: (status: boolean) => ({ type: 'CHANGE_RSS_PAGE_LOADING_STATUS', status } as const),
+  toggleVerificationLinkLoadingStatus: (status: boolean) => ({ type: 'TOGGLE_VERIFICATION_LOADING_STATUS', status } as const),
+  deleteRssNewsSource: (key: number) => ({ type: 'DELETE_RSS_NEWS_SOURCE', key } as const)
+};
+
+export type RssNewsActionsTypes = InferActionsTypes<typeof rssNewsActions>;
 
 export type RssNewsSource = {
   key: number
@@ -44,12 +47,9 @@ const initialState: InitialState = {
   }
 }
 
-export type ActionRssNewsTypes = ChangeLoadingStatusOnRssPageAction | AddNewRssSourceAction | SetCurrentRssNewsAction | ToggleVerificationLoadingStatusAction
-                  | DeleteRssNewsSourceAction;
-
-export default function rssNewsReducer(state = initialState, action: ActionRssNewsTypes): InitialState {
+export default function rssNewsReducer(state = initialState, action: RssNewsActionsTypes): InitialState {
   switch(action.type) {
-    case types.CHANGE_RSS_PAGE_LOADING_STATUS: {
+    case 'CHANGE_RSS_PAGE_LOADING_STATUS': {
       return {
         ...state,
         rssPage: {
@@ -58,7 +58,7 @@ export default function rssNewsReducer(state = initialState, action: ActionRssNe
         }
       }
     }
-    case types.SET_CURRENT_RSS_NEWS_SUCCESS: {
+    case 'SET_CURRENT_RSS_NEWS_SUCCESS': {
       return {
         ...state,
         rssPage: {
@@ -67,7 +67,7 @@ export default function rssNewsReducer(state = initialState, action: ActionRssNe
         }
       }
     }
-    case types.ADD_NEW_RSS_SOURCE: {
+    case 'ADD_NEW_RSS_SOURCE': {
       return {
         ...state,
         rssPage: {
@@ -76,7 +76,7 @@ export default function rssNewsReducer(state = initialState, action: ActionRssNe
         }
       }
     }
-    case types.TOGGLE_VERIFICATION_LOADING_STATUS: {
+    case 'TOGGLE_VERIFICATION_LOADING_STATUS': {
       return {
         ...state,
         rssPage: {
@@ -85,7 +85,7 @@ export default function rssNewsReducer(state = initialState, action: ActionRssNe
         }
       }
     }
-    case types.DELETE_RSS_NEWS_SOURCE: {
+    case 'DELETE_RSS_NEWS_SOURCE': {
       return {
         ...state,
         rssPage: {

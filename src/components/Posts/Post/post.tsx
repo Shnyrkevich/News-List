@@ -3,9 +3,8 @@ import './post.css';
 import { Avatar, Typography, Menu, Space, Dropdown, Popconfirm, Input, Button, Tag, message } from 'antd';
 import { UserOutlined, EditOutlined, DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { actionCreator } from '../../../store/actions';
 import TagsPeacker from '../../TagsPicker/TagsPicker';
-import { TPost } from '../../../store/reducers/postsReducer';
+import { TPost, postsActions } from '../../../store/reducers/postsReducer';
 import { dateFix } from '../../../utils/dateFix';
 
 const tagsColors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
@@ -51,7 +50,7 @@ export function Post(props: IProps) {
       title: title,
       tags: tags
     }
-    dispatch(actionCreator().changePost(editedPost));
+    dispatch(postsActions.changePost(editedPost));
     setEditStatus(false);
   }
 
@@ -64,7 +63,7 @@ export function Post(props: IProps) {
         <Popconfirm
           title='Are you sure?'
           okText='Yes' cancelText='No'
-          onConfirm={() => dispatch(actionCreator().deletePost(props.post.id))}
+          onConfirm={() => dispatch(postsActions.deletePost(props.post.id))}
         >
           <a href='#'>Delete</a>
         </Popconfirm>

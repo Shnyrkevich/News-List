@@ -1,9 +1,12 @@
-import { 
-  types,
-  ChangeAuthorizationModalVisabilityAction,
-  ChangeUserModalVisabilityAction,
-  ChangeModalVisabilityAction,
- } from '../actions';
+import { InferActionsTypes } from '../store';
+
+export const modalWindowsActions = {
+  changeModalVisability: () => ({ type: 'CHANGE_MODAL_POST_VISABILITY' } as const),
+  changeAuthorizationModalVisability: () => ({ type: 'CHANGE_AUTHORIZATION_MODAL_VISABILITY' } as const),
+  changeUserModalVisability: () => ({ type: 'CHANGE_USER_MODAL_VISABILITY' } as const),
+};
+
+export type ModalWindowsActionsTypes = InferActionsTypes<typeof modalWindowsActions>;
 
 type TModalWindow = {
   postModalVisability: boolean
@@ -23,11 +26,9 @@ const initialState: InitialState = {
   }
 };
 
-type ActionTypes = ChangeAuthorizationModalVisabilityAction | ChangeModalVisabilityAction | ChangeUserModalVisabilityAction;
-
-export default function modalReducer(state = initialState, action: ActionTypes): InitialState {
+export default function modalReducer(state = initialState, action: ModalWindowsActionsTypes): InitialState {
   switch (action.type) {
-    case types.CHANGE_MODAL_POST_VISABILITY: {
+    case 'CHANGE_MODAL_POST_VISABILITY': {
       return {
         ...state,
         modalWindow: {
@@ -36,7 +37,7 @@ export default function modalReducer(state = initialState, action: ActionTypes):
         }
       };
     }
-    case types.CHANGE_AUTHORIZATION_MODAL_VISABILITY: {
+    case 'CHANGE_AUTHORIZATION_MODAL_VISABILITY': {
       return {
         ...state,
         modalWindow: {
@@ -45,7 +46,7 @@ export default function modalReducer(state = initialState, action: ActionTypes):
         }
       };
     }
-    case types.CHANGE_USER_MODAL_VISABILITY: {
+    case 'CHANGE_USER_MODAL_VISABILITY': {
       return {
         ...state,
         modalWindow: {

@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { getAuthUser } from '../../store/selectors/user-selectors';
 import AddNewRssSourceForm from './AddNewRssSourceForm';
 import { getRssNewsSources } from '../../store/selectors/rss-news-selector';
-import { actionCreator } from '../../store/actions';
+import { rssNewsActions } from '../../store/reducers/rssNewReducer';
 
 export default function AdministratorPage() {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export default function AdministratorPage() {
             <Popconfirm title='Are you sure?'
               okText='Yes'
               cancelText='No'
-              onConfirm={() => dispatch(actionCreator().deleteRssNewsSource(key))}
+              onConfirm={() => dispatch(rssNewsActions.deleteRssNewsSource(key))}
             >
               <DeleteOutlined /> Delete
             </Popconfirm>

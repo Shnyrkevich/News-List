@@ -1,11 +1,12 @@
-import {
-    types,
-    AddNewPostAction,
-    DeletePostAction,
-    ChangePostAction,
-    SetActualPostsAction,
-    ChangeUserInPostsAction
-} from '../actions';
+import { InferActionsTypes } from "../store";
+
+export type NewPost = {
+  user: TUser
+  title: string
+  text: string 
+  tags: string[]
+  date: string
+}
 
 export type TUser = {
   id: number
@@ -31,7 +32,15 @@ type InitialState = {
   postsPage: PostsPage
 }
 
-type ActionTypes = AddNewPostAction | DeletePostAction | ChangePostAction | SetActualPostsAction | ChangeUserInPostsAction;
+export const postsActions = {
+  addNewPost: (newPost: NewPost) => ({ type: 'ADD_NEW_POST', newPost } as const),
+  deletePost: (id: number) => ({ type: 'DELETE_POST', id } as const),
+  changePost: (post: TPost) => ({ type: 'CHANGE_POST', post } as const),
+  setActualPosts: (posts: TPost[]) => ({ type: 'SET_ACTUAL_POSTS', posts } as const),
+  changeUserInPosts: (user: TUser) => ({ type: 'CHANGE_USER_IN_POSTS', user } as const)
+};
+
+export type PostsActionsTypes = InferActionsTypes<typeof postsActions>;
 
 const initialState: InitialState = {
   postsPage: {
@@ -113,9 +122,9 @@ const initialState: InitialState = {
   }
 };
 
-const postsReducer = (state = initialState, action: ActionTypes): InitialState => {
+const postsReducer = (state = initialState, action: PostsActionsTypes): InitialState => {
   switch (action.type) {
-    case types.ADD_NEW_POST: {
+    case 'ADD_NEW_POST': {
       return {
         ...state,
         postsPage: {
@@ -130,7 +139,7 @@ const postsReducer = (state = initialState, action: ActionTypes): InitialState =
         }
       };
     }
-    case types.CHANGE_POST: {
+    case 'CHANGE_POST': {
       return {
         ...state,
         postsPage: {
@@ -141,7 +150,7 @@ const postsReducer = (state = initialState, action: ActionTypes): InitialState =
         }
       };
     }
-    case types.DELETE_POST: {
+    case 'DELETE_POST': {
       return {
         ...state,
         postsPage: {
@@ -150,7 +159,7 @@ const postsReducer = (state = initialState, action: ActionTypes): InitialState =
         }
       };
     }
-    case types.SET_ACTUAL_POSTS: {
+    case 'SET_ACTUAL_POSTS': {
       return {
         ...state,
         postsPage: {
@@ -159,7 +168,7 @@ const postsReducer = (state = initialState, action: ActionTypes): InitialState =
         }
       }
     }
-    case types.CHANGE_USER_IN_POSTS: {
+    case 'CHANGE_USER_IN_POSTS': {
       return {
         ...state,
         postsPage: {

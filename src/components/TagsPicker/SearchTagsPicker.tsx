@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreator } from '../../store/actions';
+import { postsQuantityActions } from '../../store/reducers/postsQuantityReducer';
+import { tagsActions } from '../../store/reducers/searchingTagsReducer';
 import { getTags } from '../../store/selectors/tags-selector';
 import TagsPeacker from './TagsPicker';
 
@@ -9,11 +10,11 @@ export default function SearchTagsPeacker() {
   const tags: string[] | [] = useSelector(getTags);
 
   function setTags(currentTags: string[]) {
-    dispatch(actionCreator().setTags(currentTags));
+    dispatch(tagsActions.setTags(currentTags));
   }
 
   useEffect(() => {
-    dispatch(actionCreator().changePage(1));
+    dispatch(postsQuantityActions.changePage(1));
   }, [tags])
 
   return <div className='search-tags-peacker-container'>

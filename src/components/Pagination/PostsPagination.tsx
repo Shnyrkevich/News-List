@@ -2,9 +2,9 @@ import React from 'react';
 import './pagination.css';
 import { Pagination } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreator } from '../../store/actions';
 import { TPost } from '../../store/reducers/postsReducer';
 import { getActualPostsPage, getPostsByTags, getPostsQuantityOnPage } from '../../store/selectors/posts-selectors';
+import { postsQuantityActions } from '../../store/reducers/postsQuantityReducer';
 
 export default function PostsPagination() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function PostsPagination() {
   const actualPosts: TPost[] = useSelector(getPostsByTags);
   
   function handlePageChange(page: number): void {
-    dispatch(actionCreator().changePage(page));
+    dispatch(postsQuantityActions.changePage(page));
   }
 
   return <Pagination

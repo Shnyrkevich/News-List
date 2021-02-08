@@ -1,33 +1,30 @@
-import { actionCreator } from '../actions';
-import { Dispatch } from 'redux';
 import { getRssNews } from '../../api/api_requests';
 import { FormValues } from '../../components/AdministratorPage/AddNewRssSourceForm';
 import { message } from 'antd';
 import { RootState } from '../store';
-import { ActionRssNewsTypes, RssNewsSource } from '../reducers/rssNewReducer';
+import { RssNewsActionsTypes, RssNewsSource, rssNewsActions } from '../reducers/rssNewReducer';
 import { ThunkAction } from 'redux-thunk';
-import { AxiosResponse } from 'axios';
 
-type ThunkActionType = ThunkAction<void, RootState, unknown, ActionRssNewsTypes>;
+type ThunkActionType = ThunkAction<void, RootState, unknown, RssNewsActionsTypes>;
 
 export const getCurrentRssNewsThunkCreator = (rssNewsUrl: string): ThunkActionType => {
   return (dispatch) => {
-    dispatch(actionCreator().changeLoadingStatusOnRssPage(true));
+    dispatch(rssNewsActions.changeLoadingStatusOnRssPage(true));
     getRssNews(rssNewsUrl)
     .then((response) => {
-      dispatch(actionCreator().setCurrentRssNews(response.data.items.slice(0, 9)));
-      dispatch(actionCreator().changeLoadingStatusOnRssPage(false));
+      dispatch(rssNewsActions.setCurrentRssNews(response.data.items.slice(0, 9)));
+      dispatch(rssNewsActions.changeLoadingStatusOnRssPage(false));
     })
     .catch((e: any) => {
       console.log(e);
-      dispatch(actionCreator().changeLoadingStatusOnRssPage(false));
+      dispatch(rssNewsActions.changeLoadingStatusOnRssPage(false));
     })
   } 
 }
 
 export const checkRssNewsSourceOnReadability = (values: FormValues): ThunkActionType => {
   return (dispatch, getState) => {
-    dispatch(actionCreator().toggleVerificationLinkLoadingStatus(true));
+    dispatch(rssNewsActions.toggleVerificationLinkLoadingStatus(true));
     getRssNews(values.sourceLink)
     .then(() => {
       const sources = getState().rssNewsReducer.rssPage.rssNewsSources;
@@ -37,16 +34,16 @@ export const checkRssNewsSourceOnReadability = (values: FormValues): ThunkAction
         throw new Error('We have the same data');
       }
       message.success('Yeah, the link is valid and has already added.');
-      dispatch(actionCreator().addNewRssNewsSource({
+      dispatch(rssNewsActions.addNewRssNewsSource({
         key: sources.length,
         ...values
       }));
-      dispatch(actionCreator().toggleVerificationLinkLoadingStatus(false));
+      dispatch(rssNewsActions.toggleVerificationLinkLoadingStatus(false));
     })
     .catch((e: any) => {
       console.log(e);
       message.error('Sorry, your source link incorrect or we have already have the same.');
-      dispatch(actionCreator().toggleVerificationLinkLoadingStatus(false));
+      dispatch(rssNewsActions.toggleVerificationLinkLoadingStatus(false));
     })
   }
 }
