@@ -59,7 +59,7 @@ export default function LogInAvatar() {
           <Avatar icon={<UserOutlined />} size={28} />
         )}
         <Space direction='vertical'>
-          <Typography.Text className='post-container_user-name' style={{color: 'white'}}>{authUser.login}</Typography.Text>
+          <Typography.Text className='post-container_user-name-head' style={{color: 'white'}}>{authUser.login}</Typography.Text>
         </Space>
       </Space>
     </Dropdown> :

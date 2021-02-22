@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import './tags.css';
 import { Tag, Input, Tooltip } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -14,7 +14,17 @@ export default function TagsPeacker(props: IProps) {
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState('');
 
-  const inputRefEdit = useRef<any>(null);
+  const measuredRef = useCallback((node: Input) => {
+    if (node !== null && inputVisible) {
+      node.focus();
+    }
+  }, [inputVisible]);
+
+  const measuredEditRef = useCallback((node: Input) => {
+    if (node !== null) {
+      node.focus();
+    }
+  }, [editInputIndex]);
 
   function handleClose(removedTag: string) {
     props.setTags(props.searchingTags.filter((tag: string) => (tag) !== removedTag));
@@ -22,7 +32,7 @@ export default function TagsPeacker(props: IProps) {
 
   function showInput() {
     setInputVisible(true);
-  }
+  } 
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
@@ -54,7 +64,7 @@ export default function TagsPeacker(props: IProps) {
         if (editInputIndex === index) {
           return (
             <Input
-              ref={inputRefEdit}
+              ref={measuredEditRef}
               key={tag}
               size='small'
               className='tag-input'
@@ -79,7 +89,6 @@ export default function TagsPeacker(props: IProps) {
               onDoubleClick={e => {
                   setEditInputIndex(index);
                   setEditInputValue(tag);
-                  inputRefEdit.current!.focus();
                   e.preventDefault();
               }}
             >
@@ -97,6 +106,7 @@ export default function TagsPeacker(props: IProps) {
       })}
       {inputVisible && (
         <Input
+          ref={measuredRef}
           type='text'
           size='small'
           className='tag-input'
@@ -106,11 +116,11 @@ export default function TagsPeacker(props: IProps) {
           onPressEnter={handleInputConfirm}
         />
       )}
-      {!inputVisible && (
+      {!inputVisible && props.searchingTags.length <= 10 ? (
         <Tag className='site-tag-plus' onClick={showInput}>
           <PlusOutlined /> New Tag
         </Tag>
-      )}
+      ) : null}
     </div>
   );
 }

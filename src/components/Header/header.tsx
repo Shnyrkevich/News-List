@@ -20,6 +20,7 @@ export default function Header() {
 
   useEffect(() => {
     if (document.documentElement.offsetWidth <= 570) setShortForm(true);
+    setBurgerMenuVisible(false);
     window.addEventListener('resize', onPageSizeChange);
     return () => {
       window.removeEventListener('resize', onPageSizeChange);
@@ -65,7 +66,7 @@ export default function Header() {
               onClose={onBurgerMenuClose}
               visible={burgerMenuVisible}
             >
-              <Navigation />
+              <Navigation onLinkClick={() => onBurgerMenuClose()} />
             </Drawer>
           </>
         }

@@ -13,6 +13,11 @@ export default function PostsPagination() {
   const actualPosts: TPost[] = useSelector(getPostsByTags);
   
   function handlePageChange(page: number): void {
+    scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
     dispatch(postsQuantityActions.changePage(page));
   }
 

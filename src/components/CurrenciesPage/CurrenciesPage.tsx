@@ -32,21 +32,23 @@ const columns = [
 
 export default function CurrenciesPage() {
   const dispatch = useDispatch();
-  const currencies = useSelector(getCurrencies);
+  const currenciesData = useSelector(getCurrencies);
   const isLoading = useSelector(getCurrenciesIsLoading);
   
   useEffect(() => {
-    if (!currencies) {
+    if (!currenciesData) {
+      dispatch(getCurrenciesThunkCreator());
+    } else if (new Date().getDate() !== new Date(currenciesData.currentDate).getDate()) {
       dispatch(getCurrenciesThunkCreator());
     }
-  });
+  }, [currenciesData]);
 
   return (
     <div className='currencies-container'>
       {
         isLoading ?
         <Spin size='large' /> :
-        currencies && !currencies.length ?
+        !currenciesData.currencies ?
         <Result
           status='500'
           title='500'
@@ -58,7 +60,7 @@ export default function CurrenciesPage() {
           </Typography.Title>
           <Table 
             columns={columns}
-            dataSource={currencies || []}
+            dataSource={currenciesData.currencies || []}
             pagination={false}
             scroll={{ x: 480 }}
           />

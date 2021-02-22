@@ -14,7 +14,7 @@ export default function RssNews() {
   const [redirectStatus, setRedirectStatus] = useState<boolean>(false);
 
   useState(() => {
-    if ( !currentNews ) {
+    if (!currentNews) {
       setRedirectStatus(true);
     }
   });
@@ -25,7 +25,6 @@ export default function RssNews() {
         className='site-page-header'
         onBack={() => setRedirectStatus(true)}
         title={`${source.toUpperCase()}`}
-        subTitle='Last 10 news'
       />
       <div className='rss-news_cards-container'>
         {

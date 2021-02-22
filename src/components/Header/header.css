@@ -45,6 +45,10 @@
   padding: 14px;
 }
 
+.post-container_user-name-head:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 450px) {
   .header-content {
     width: 95%;

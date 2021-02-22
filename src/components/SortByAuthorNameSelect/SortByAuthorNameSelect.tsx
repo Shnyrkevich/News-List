@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TUser, TPost } from '../../store/reducers/postsReducer';
 import { getPosts } from '../../store/selectors/posts-selectors';
 import { sortsActions } from '../../store/reducers/sortReducer';
+import { getSortAuthorName } from '../../store/selectors/sort-selectors';
 
 const { Option } = Select;
 
 export default function SortByAuthorNameSelect() {
   const dispatch = useDispatch();
   const posts: TPost[] = useSelector(getPosts);
+  const activeSortName = useSelector(getSortAuthorName);
   const [ authors, setAuthors ] = useState<TUser[] | null>(null);
 
   useEffect(() => {
@@ -34,6 +36,7 @@ export default function SortByAuthorNameSelect() {
         style={{ width: 145 }}
         onChange={handleChange}
         placeholder={'Select an author'}
+        defaultValue={activeSortName ? activeSortName : undefined}
       >
         {
           authors?.map((el: TUser, key: number) => (<Option value={el.login} key={key}>{el.login}</Option>))

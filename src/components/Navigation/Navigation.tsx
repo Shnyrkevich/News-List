@@ -9,7 +9,11 @@ import { RssNewsSource } from '../../store/reducers/rssNewReducer';
 import { getCurrentRssNewsThunkCreator } from '../../store/thunks/rss-news-thunk';
 import { getAuthUser } from '../../store/selectors/user-selectors';
 
-export default function Navigation() {
+type TProps = {
+  onLinkClick?: () => void
+}
+
+export default function Navigation({ onLinkClick }: TProps) {
   const dispatch = useDispatch();
   const activeUser = useSelector(getAuthUser);
   const rssSources = useSelector(getRssNewsSources);
@@ -20,7 +24,14 @@ export default function Navigation() {
         rssSources.map((el: RssNewsSource, ind: number) => (
           <Menu.Item 
             key={ind}
-            onClick={() => dispatch(getCurrentRssNewsThunkCreator(el.sourceLink))}
+            onClick={() => {
+              if (!onLinkClick) {
+                dispatch(getCurrentRssNewsThunkCreator(el.sourceLink));
+              } else {
+                dispatch(getCurrentRssNewsThunkCreator(el.sourceLink));
+                onLinkClick();
+              }
+            }}
           >
             <NavLink
               to={`/rss/${el.sourceName.toLowerCase()}`}
@@ -36,11 +47,14 @@ export default function Navigation() {
   return (
     <nav className='navigation'>
       <NavLink
-        exact 
+        exact
+        onClick={onLinkClick ? () => onLinkClick() : undefined}
         to='/'>
           Home
       </NavLink>
       <NavLink
+        exact
+        onClick={onLinkClick ? () => onLinkClick() : undefined}
         to='/currencies'
       >
         Currencies
@@ -48,7 +62,6 @@ export default function Navigation() {
       <Dropdown
         overlay={menu}
         trigger={['click']}
-        className={ window.location.href.includes('/rss') ? 'active' : '' }
       >
         <NavLink
           className='ant-dropdown-link'
@@ -65,6 +78,7 @@ export default function Navigation() {
       {
         activeUser?.id === 0 ?
         <NavLink
+          onClick={onLinkClick ? () => onLinkClick() : undefined}
           exact 
           to='/admin_room'>
             SiteControl

@@ -2,7 +2,7 @@ import { InferActionsTypes } from '../store';
 
 export const currenciesActions = {
   getCurrenciesErrorAction: () => ({ type: 'GET_CURRENCIES_ERROR' } as const),
-  getCurrenciesSuccessAction: (currencies: Currency[] | []) => ({ type: 'GET_CURRENCIES_SUCCESS', currencies } as const),  
+  getCurrenciesSuccessAction: (currencyData: CurrencyData) => ({ type: 'GET_CURRENCIES_SUCCESS', currencyData } as const),  
   changeCurrenciesLoadingStatus: (status: boolean) => ({ type: 'CHANGE_CURRENCIES_LOADING_STATUS', status } as const)
 };
 
@@ -17,17 +17,22 @@ export type Currency = {
   Date: string
 }
 
+export type CurrencyData = {
+  currentDate: string,
+  currencies: Currency[]
+}
+
 type InitialState = {
   currenciesPage: {
     isLoading: boolean,
-    currencies: Currency[] | null | []
+    currencyData: CurrencyData | null
   }
 }
 
 const initialState: InitialState = {
   currenciesPage: {
     isLoading: false,
-    currencies: null
+    currencyData: null
   }
 }
 
@@ -38,7 +43,7 @@ export default function currenciesPageReducer(state = initialState, action: Curr
         ...state,
         currenciesPage: {
           ...state.currenciesPage,
-          currencies: [],
+          currencyData: null
         }
       }
     }
@@ -47,7 +52,7 @@ export default function currenciesPageReducer(state = initialState, action: Curr
         ...state,
         currenciesPage: {
           ...state.currenciesPage,
-          currencies: action.currencies,
+          currencyData: action.currencyData
         }
       }
     }

@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { getCurrencies } from '../../api/api_requests';
-import { currenciesActions, CurrenciesActionsTypes } from '../reducers/currenciesPageReducer';
+import { currenciesActions, CurrenciesActionsTypes, CurrencyData } from '../reducers/currenciesPageReducer';
  
 export const getCurrenciesThunkCreator = () => {
   return (dispatch: Dispatch<CurrenciesActionsTypes>): void => {
@@ -13,7 +13,11 @@ export const getCurrenciesThunkCreator = () => {
           key: ind
         };
       });
-      dispatch(currenciesActions.getCurrenciesSuccessAction(currencies));
+      const currenciesData: CurrencyData = {
+        currencies,
+        currentDate: new Date().toString()
+      };
+      dispatch(currenciesActions.getCurrenciesSuccessAction(currenciesData));
       dispatch(currenciesActions.changeCurrenciesLoadingStatus(false));
     })
     .catch((e: any) => {

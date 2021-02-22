@@ -3,13 +3,13 @@ import './styles.css';
 import 'antd/dist/antd.css';
 import { BackTop } from 'antd';
 import Header from '../Header/header';
-import AuthorizationModal from '../AuthorizationModal/AuthorizationModal';
-import EditUserModal from '../EditUserModal/EditUserModal';
+import AuthorizationModal from '../Modals/AuthorizationModal/AuthorizationModal';
+import EditUserModal from '../Modals/EditUserModal/EditUserModal';
 import CurrenciesPage from '../CurrenciesPage/CurrenciesPage';
 import RssNewsPage from '../RssPage/RssNewsContainer';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import PostsPage from '../Posts/PostsPage';
-import AdministratorPage from '../AdministratorPage/AdministratorPage';
+import AdministratorPage from '../AdministrationPage/AdministratorPage';
 
 export default function App() {
   return (

@@ -1,8 +1,8 @@
-import { Currency } from '../reducers/currenciesPageReducer';
+import { CurrencyData } from '../reducers/currenciesPageReducer';
 import { RootState } from '../store';
 
-export function getCurrencies(state: RootState): Currency[] | null | [] {
-  return state.currenciesPageReducer.currenciesPage.currencies;
+export function getCurrencies(state: RootState): CurrencyData {
+  return state.currenciesPageReducer.currenciesPage.currencyData;
 }
 
 export function getCurrenciesIsLoading(state: RootState): boolean {

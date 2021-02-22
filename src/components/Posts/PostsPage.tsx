@@ -1,5 +1,5 @@
 import React from 'react';
-import PostModal from '../Add-post-modal/Modal';
+import PostModal from '../Modals/Add-post-modal/Modal';
 import AppControls from '../App-contolls/AppControls';
 import PostsPagination from '../Pagination/PostsPagination';
 import PostsList from './posts';

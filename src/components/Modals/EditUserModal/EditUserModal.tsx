@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import './edit-user-modal.css';
 import { Form, Input, Button, Modal, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { IUser, userAuthorizationActions } from '../../store/reducers/userAuthorizationReducer';
-import AvatarUpload from '../AvatarUpload/AvatarUpload';
-import { getAuthUser } from '../../store/selectors/user-selectors';
-import { getEditUserModalVisability } from '../../store/selectors/modal-windows-selectors';
-import { modalWindowsActions } from '../../store/reducers/modalReducer';
-import { postsActions } from '../../store/reducers/postsReducer';
+import { IUser, userAuthorizationActions } from '../../../store/reducers/userAuthorizationReducer';
+import AvatarUpload from '../../AvatarUpload/AvatarUpload';
+import { getAuthUser } from '../../../store/selectors/user-selectors';
+import { getEditUserModalVisability } from '../../../store/selectors/modal-windows-selectors';
+import { modalWindowsActions } from '../../../store/reducers/modalReducer';
+import { postsActions } from '../../../store/reducers/postsReducer';
 
 const layout = {
   labelCol: { span: 6 },

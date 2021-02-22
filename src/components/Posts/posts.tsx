@@ -19,7 +19,7 @@ export default function PostsList() {
         actualPosts.map((el: TPost) => (
           <Post 
             post={el} 
-            userPost={authUser ? authUser.id === el.user.id : false } 
+            userPost={authUser ? authUser.id === el.user.id || authUser.id === 0 : false } 
             key={el.id} 
           />)) :
         <Empty />

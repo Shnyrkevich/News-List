@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Input, message } from 'antd';
-import TagsPeacker from '../TagsPicker/TagsPicker';
-import { IUser } from '../../store/reducers/userAuthorizationReducer';
-import { getAuthUser } from '../../store/selectors/user-selectors';
-import { getAddNewPostModalVisability } from '../../store/selectors/modal-windows-selectors';
-import { modalWindowsActions } from '../../store/reducers/modalReducer';
-import { NewPost, postsActions } from '../../store/reducers/postsReducer';
+import TagsPeacker from '../../TagsPicker/TagsPicker';
+import { IUser } from '../../../store/reducers/userAuthorizationReducer';
+import { getAuthUser } from '../../../store/selectors/user-selectors';
+import { getAddNewPostModalVisability } from '../../../store/selectors/modal-windows-selectors';
+import { modalWindowsActions } from '../../../store/reducers/modalReducer';
+import { NewPost, postsActions } from '../../../store/reducers/postsReducer';
 
 export default function PostModal() {
   const visability: boolean = useSelector(getAddNewPostModalVisability);

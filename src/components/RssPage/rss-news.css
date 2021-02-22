@@ -67,6 +67,10 @@
 
 .card-content a {
   font-weight: bold;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  overflow: hidden;
 }
 
 .card-header a:hover {

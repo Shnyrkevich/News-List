@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Form, Input, Button, Modal, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { IUser, userAuthorizationActions } from '../../store/reducers/userAuthorizationReducer';
-import { getAuthorizationModalVisability } from '../../store/selectors/modal-windows-selectors';
-import { getUsers } from '../../store/selectors/user-selectors';
-import { modalWindowsActions } from '../../store/reducers/modalReducer';
+import { IUser, userAuthorizationActions } from '../../../store/reducers/userAuthorizationReducer';
+import { getAuthorizationModalVisability } from '../../../store/selectors/modal-windows-selectors';
+import { getUsers } from '../../../store/selectors/user-selectors';
+import { modalWindowsActions } from '../../../store/reducers/modalReducer';
 
 type IForm = {
   login: string

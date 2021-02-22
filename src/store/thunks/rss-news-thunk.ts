@@ -1,5 +1,5 @@
 import { getRssNews } from '../../api/api_requests';
-import { FormValues } from '../../components/AdministratorPage/AddNewRssSourceForm';
+import { FormValues } from '../../components/AdministrationPage/AddNewRssSourceForm';
 import { message } from 'antd';
 import { RootState } from '../store';
 import { RssNewsActionsTypes, RssNewsSource, rssNewsActions } from '../reducers/rssNewReducer';
